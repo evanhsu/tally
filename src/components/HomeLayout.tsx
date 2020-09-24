@@ -5,12 +5,12 @@ import {Routes} from "../routes/routes";
 export const HomeLayout = () => {
     return (
         <BrowserRouter>
-            <h1>Main Page</h1>
+            <h1>Home Page</h1>
 
             <nav>
                 <ul>
                     <li>
-                        <Link to="/">Main</Link>
+                        <Link to="/">Home</Link>
                     </li>
                     <li>
                         <Link to="/voters">Voters</Link>
