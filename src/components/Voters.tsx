@@ -35,16 +35,16 @@ export const Voters = (props: VotersProps) => {
         Register Voter
       </button>
 
-      <VoterTable voters={props.voters} votersSort={{col: "id", dir: "asc"}} onSortVoters={()=>{}}/>
+      <VoterTable voters={props.voters} votersSort={{col: "id", dir: "asc"}} onSortVoters={()=>{}} onDeleteVoter={props.onDeleteVoter}/>
       
       {/* <button
         type="button"
         onClick={() => props.onViewRegisteredVoters()}
       >
         View Voters
-      </button>
+      </button> */}
 
-      <button
+      {/* <button
         type="button"
         onClick={() => props.onRegisterVoter({
           firstName: "Mekha",
@@ -59,16 +59,16 @@ export const Voters = (props: VotersProps) => {
         })}
       >
         Add Voter
-      </button>
+      </button> */}
 
-      <button
+      {/* <button
         type="button"
         onClick={() => props.onDeleteVoter(3)}
       >
         Delete Voter
-      </button>
+      </button> */}
 
-      <button
+      {/* <button
         type="button"
         onClick={() => props.onEditVoter({
           id: 3,

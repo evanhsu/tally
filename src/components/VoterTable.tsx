@@ -7,6 +7,7 @@ export type VoterTableProps = {
     voters: Voter[],
     votersSort: VotersSort,
     onSortVoters: (col: VoterKeys) => void,
+    onDeleteVoter: (voterId: number) => void,
   };
   
   type ColHeaderProps = {
@@ -45,7 +46,7 @@ export const VoterTable = (props: VoterTableProps) => {
         <tbody>
           {props.voters.map(voter => voter.id === 1000 //editVoterId
             ? <EditVoter key={voter.id} voter={voter} />
-            : <ViewVoter key={voter.id} voter={voter} />)}
+            : <ViewVoter key={voter.id} voter={voter} onDeleteVoter={props.onDeleteVoter}/>)}
         </tbody>
       </table>
       );    

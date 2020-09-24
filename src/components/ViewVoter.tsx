@@ -2,7 +2,8 @@ import React from "react";
 import { Voter, NewVoter } from "../models/models";
 
 export type ViewVoterProps = {
-    voter: Voter
+    voter: Voter,
+    onDeleteVoter: (voterId: number) => void,
 };
 
 export const ViewVoter = (props: ViewVoterProps) => {
@@ -23,7 +24,7 @@ export const ViewVoter = (props: ViewVoterProps) => {
               >Edit
               </button>
             <button type="button"
-              //onClick={() => props.onDeleteCar(props.car.id)}
+              onClick={() => props.onDeleteVoter(props.voter.id)}
               >Delete
               </button>
           </td>
