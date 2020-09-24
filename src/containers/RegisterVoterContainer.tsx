@@ -8,7 +8,7 @@ import { Voter } from "../models/models";
 import { Voters } from "../components/Voters";
 
 export function RegisterVoterContainer() {
-  // const voters = useSelector<TallyState, Voter[]>((state) => state.voters);
+  const voters = useSelector<TallyState, Voter[]>((state) => state.voters);
 
   // const state = {
   //   voters
@@ -18,9 +18,10 @@ export function RegisterVoterContainer() {
   const boundActions = bindActionCreators(
     {
       onRegisterVoter: TallyActions.appendVoter,
+      onViewRegisteredVoters: TallyActions.fetchVoters,
     },
     dispatch
   );
 
-  return (<Voters {...boundActions}  />);
+  return (<Voters {...boundActions} voters={voters} />);
 }

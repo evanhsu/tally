@@ -1,15 +1,29 @@
 import React from "react";
-import { NewVoter } from "../models/models";
+import { Voter, NewVoter } from "../models/models";
 
 export type VotersProps = {
     onRegisterVoter: (newVoter: NewVoter) => void,
+    onViewRegisteredVoters: () => void,
+    voters: Voter[]
 };
 
 export const Voters = (props: VotersProps) => {
-    console.log(props);
+  
+// const handleViewVoters = () => {
+//   props.onViewRegisteredVoters();
+// };
+
+  console.log(props.voters);
   return (
     <>
       <h1>Voters Page</h1>
+      <button
+        type="button"
+        onClick={() => props.onViewRegisteredVoters()}
+      >
+        View Voters
+      </button>
+
       <button
         type="button"
         onClick={() => props.onRegisterVoter({
