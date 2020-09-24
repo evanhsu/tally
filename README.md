@@ -1,43 +1,21 @@
-# Apollo Client Enhancers with React Starter Project
+# Tally
 
-This project is for used with the Mastering Apollo Series on WintellectNOW [http://www.wintellectnow.com](http://www.wintelltectnow.com)
-
-## Project Setup
-
-### Requirements
-
-- Node.js (version 8 or later)
-- Web Browser
-
-### Instructions
-
-**Step 1.** Clone/Download this repository. If downloading the zip file, then extract the zip file.
-
-**Step 2.** Open a terminal window and change to the folder containing the "package.json" file.
-
-**Step 3.** Run the following commands:
-
+## Getting Started
 ```bash
 npm install
 
 npm run start-rest-server
 ```
-**Step 4.** Open a second terminal window and change to the folder containing the "package.json" file.
 
-**Step 5.** Run the following command:
+Open another terminal window and change to the folder containing the "package.json" file.
 
-```bash
-npm run start-graphql-server
-```
-**Step 6.** Open a third terminal window and change to the folder containing the "package.json" file.
-
-**Step 7.** Run the following command:
+Run the following command:
 
 ```bash
 npm run start-client
 ```
 
-**Step 8.** Your system's default web browser should open and browse to the URL http://localhost:3000.
+Your system's default web browser should open and browse to the URL http://localhost:3000.
 
 ### Modifying the Project
 
@@ -45,9 +23,7 @@ The server files can be modified in the "server-src" folder. The "server-dist" f
 
 ### FAQ
 
-**Question 1.** If you have another version of Node.js installed on your system which does not work with this course, then please consider installing [NVM](https://github.com/creationix/nvm) (for Mac & Linux) or [NVM-Windows](https://github.com/coreybutler/nvm-windows) to enable the installation of multiple versions of Node.js. Both tools support the installation, management and switching between multiple versions of Node.js. Using these tools, installing Node.js version 8 or later without losing your older version should be possible. This course does not provide support for these tools, the course only suggests using them if needed.
-
-**Question 2.** The default ports number for the three server applications are as follows:
+- The default ports number for the three server applications are as follows:
 
   - Web Server: 3000
   - GraphQL Server: 3010
@@ -55,14 +31,48 @@ The server files can be modified in the "server-src" folder. The "server-dist" f
 
   If your system is running programs on these ports there will be a conflict when these three servers are started. Either disable the other applications running on those ports or change the port numbers for this project's servers within your "package.json" file. To change the port numbers, modify the port values specified in the "config" section of the "package.json". No changes to the JavaScript code is needed as the code reads the environment variables set by the config section.
 
-**Question 3.** If you are running on Windows and running the above "npm" commands with Cygwin Bash then substitute the above commands with these:
+## Notes
+* Main Screen
+  - "Register Voter"
+  - "View sortable list of voters" (with edit/delete button next to each)
+  - "Vote" (choose a ballot)
+  - "Create Election"
 
-```bash
-npm run start-rest-server-cygwin
 
-npm run start-graphql-server-cygwin
+* Register Voter
+    Voter
+    - id
+    - first name
+    - last name
+    - address
+    - county
+    - city
+    - birthdate
+    - email
+    - phone
+    - completedElectionIds: id[]
 
-npm run start-client-cygwin
-```
+  - Sign up view
 
-If you are using the Windows Command Prompt (default on Windows), then use the original commands listed in the instructions.
+* Election
+  An election is a collection of questions.
+    - id
+    - name
+    - questions: ElectionQuestion[]
+
+  - Create a new election
+  - View list of Elections 
+  - View results from a specific election
+
+* ElectionQuestion
+  - question/text/description: string
+  - responseType: bool | enum('burrito', 'pizza') | string
+
+* Ballot (Capture Votes - "Ballot" joins the Voter, the Election, and the answers for each question in the Election
+  - electionId
+  - voterId
+  - answers: ElectionAnswer[]
+
+* ElectionAnswer
+  - questionText: string
+  - voterResponse: bool
