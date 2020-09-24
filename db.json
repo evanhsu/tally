@@ -25,6 +25,30 @@
       "completedElectionIds": [
         1
       ]
+    },
+    {
+      "firstName": "Mekha",
+      "lastName": "Last",
+      "address": "laisdfh",
+      "county": "Something",
+      "city": "Cool City",
+      "birthdate": "",
+      "email": "a@b",
+      "phone": "2983748172",
+      "completedElectionIds": [],
+      "id": 3
+    },
+    {
+      "firstName": "Test",
+      "lastName": "",
+      "address": "",
+      "county": "",
+      "city": "",
+      "birthdate": "",
+      "email": "",
+      "phone": "",
+      "completedElectionIds": [],
+      "id": 4
     }
   ],
   "elections": [
