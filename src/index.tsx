@@ -6,7 +6,7 @@ import { ApolloProvider } from 'react-apollo';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloClient } from 'apollo-client';
-
+import {HomeLayout} from "./components/HomeLayout";
 import './index.css';
 
 const GRAPHQL_PORT = process.env.REACT_APP_GRAPHQL_PORT || 3010;
@@ -22,9 +22,13 @@ const client = new ApolloClient({
   connectToDevTools: true,
 });
 
+const HelloWorld = () => {
+    return (
+        <h1>Hello World</h1>
+    )
+}
+
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
+  <HomeLayout/>,
   document.getElementById('root'),
 );
