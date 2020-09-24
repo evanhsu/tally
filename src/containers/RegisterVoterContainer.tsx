@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { bindActionCreators } from "redux";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -19,9 +19,15 @@ export function RegisterVoterContainer() {
     {
       onRegisterVoter: TallyActions.appendVoter,
       onViewRegisteredVoters: TallyActions.fetchVoters,
+      onDeleteVoter: TallyActions.deleteVoter,
+      onEditVoter: TallyActions.editVoter,
     },
     dispatch
   );
+
+  useEffect(() => {
+    dispatch(TallyActions.fetchVoters());
+  }, [dispatch])
 
   return (<Voters {...boundActions} voters={voters} />);
 }

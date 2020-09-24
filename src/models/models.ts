@@ -21,6 +21,9 @@ export type Voter = {
   completedElectionIds: number[];
 };
 
+export type VoterKeys = "id" | "firstName" | "lastName" | "address" | 
+  "county" | "city" | "birthdate" | "email" | "phone";
+
 export type NewVoter = Omit<Voter, 'id'>;
 
 export type Election = {
@@ -35,3 +38,10 @@ export type Ballot = {
   voterId: number;
   answers: ElectionAnswer[];
 };
+
+export type VotersSort = {
+  // col: string,
+  // col: CarKeys,
+  col: keyof Voter,
+  dir: string,
+}

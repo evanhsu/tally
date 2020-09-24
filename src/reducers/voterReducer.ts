@@ -3,27 +3,39 @@ import { Voter } from "../models/models";
 import {
   isFetchVotersRequestAction, 
   isFetchVotersDoneAction,
-  FetchVotersRequestAction, 
   FetchVotersDoneAction,
   AppendVoterDoneAction,
-  isRegisterVoterRequestAction,
-  isRegisterVoterDoneAction,  
+  isRegisterVoterDoneAction,
+  isDeleteVoterDoneAction, isEditVoterDoneAction  
 } from "../actions/tallyActions"
 
-// TODO: we can change AnyAction to be a more specific type
 const initialVoters = [] as Voter[];
 type VoterReducerActions = FetchVotersDoneAction | AppendVoterDoneAction;
 export const voterReducer: Reducer<Voter[], VoterReducerActions> = (voters = initialVoters, action) => {
+
+  if (isEditVoterDoneAction(action)) {
+    const voterIndex = voters.findIndex(v => v.id === action.payload.voter.id);
+    const newVoters = voters.concat();
+    newVoters[voterIndex] = action.payload.voter;
+    return newVoters;
+  }
+
+  if (isDeleteVoterDoneAction(action)) {
+    return voters.filter(v => v.id !== action.payload.voterId)
+  }
+
+  if (isRegisterVoterDoneAction(action)) {
+    return [
+   ...voters,
+   {
+     ...action.payload.voter,
+   },
+ ];
+}
+
   if (isFetchVotersDoneAction(action)) {
       return action.payload.voters;
   }
-  if(isRegisterVoterDoneAction(action)) {
-       return [
-      ...voters,
-      {
-        ...action.payload.voter,
-      },
-    ];
-  }
+
   return voters;
 };
