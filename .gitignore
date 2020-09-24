@@ -1,26 +1,41 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+# Eclipse
+.classpath
+.project
+.settings/
 
-# dependencies
-/node_modules
+# Intellij
+.idea/
+*.iml*
+*.iws
+*.ipr
 
-# testing
-/coverage
+# Package Files #
+*.jar
+*.war
+*.ear
 
-# production
-/build
-
-# misc
+# Mac
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# ms vscode
+.vscode/
 
-graphql-server-dist
-prep
-~
-src/**/*.css
+# Maven
+/log/
+**/target/
+**/dg-aggregation/*.json
+
+# Spring
+**/logs/
+**/conf/
+
+# OIL
+OILLogs/
+
+# Python
+*.pyc
+
+jgiven-reports/
+*.log
+
+ui/node_modules/**
