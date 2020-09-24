@@ -1,7 +1,9 @@
-import { Voter, Election, Ballot } from "./models";
+import { Voter, Election, NewElection, Ballot } from "./models";
 
 export type TallyState = {
   voters: Voter[];
-  // elections: Election[];
+  elections: Election[];
+  electionsLoading: boolean;
+  electionForm: NewElection;
   ballots: Ballot[];
 };
