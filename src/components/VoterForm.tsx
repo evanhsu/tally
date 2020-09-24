@@ -2,11 +2,11 @@ import React from 'react';
 import { useForm } from '../hooks/useForm';
 import { NewVoter } from '../models/models';
 
-export type CarFormProps = {
+export type VoterFormProps = {
   onRegisterVoter: (voter: NewVoter) => void,
 };
 
-export function VoterForm(props: CarFormProps) {
+export function VoterForm(props: VoterFormProps) {
 
   const [ voterForm, change, resetVoterForm ] = useForm({
     firstName: "", 
@@ -55,6 +55,11 @@ export function VoterForm(props: CarFormProps) {
         City
         <input type="text" name="city"
                value={voterForm.city} onChange={change} />
+      </label>
+      <label>
+        Birthdate
+        <input type="text" name="birthday"
+               value={voterForm.birthdate} onChange={change} />
       </label>
       <label>
         Phone

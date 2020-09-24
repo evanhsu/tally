@@ -4,6 +4,7 @@ import { Voter, NewVoter } from "../models/models";
 export type ViewVoterProps = {
     voter: Voter,
     onDeleteVoter: (voterId: number) => void,
+    onEditVoterId: (voterId: number) => void,
 };
 
 export const ViewVoter = (props: ViewVoterProps) => {
@@ -21,7 +22,7 @@ export const ViewVoter = (props: ViewVoterProps) => {
           <td>{props.voter.phone}</td>         
           <td>
             <button type="button"
-              //onClick={() => props.onEditCar(props.car.id)}
+              onClick={() => props.onEditVoterId(props.voter.id)}
               >Edit
               </button>
             <button type="button"

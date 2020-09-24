@@ -1,7 +1,7 @@
 // This file contains all the actions for the app.
 // We will split up these actions into seperate files if we find that we can/need to
 import { Action, Dispatch } from "redux";
-import { Voter, NewVoter } from "../models/models";
+import { Voter, NewVoter, VoterKeys } from "../models/models";
 
 export const FETCH_VOTERS_REQUEST_ACTION = 'FETCH_VOTERS_REQUEST_ACTION';
 export const FETCH_VOTERS_DONE_ACTION = 'FETCH_VOTERS_DONE_ACTION';
@@ -14,6 +14,11 @@ export const DELETE_VOTER_DONE_ACTION = "DELETE_VOTER_DONE_ACTION";
 
 export const EDIT_VOTER_REQUEST_ACTION = "EDIT_VOTER_REQUEST_ACTION";
 export const EDIT_VOTER_DONE_ACTION = "EDIT_VOTER_DONE_ACTION";
+
+export const SORT_VOTERS_ACTION = "SORT_VOTERS_ACTION";
+
+export const EDIT_VOTER_ID_ACTION = 'EDIT_VOTER_ACTION'
+export const CANCEL_VOTER_ACTION = 'CANCEL_VOTER_ACTION'
 
 // Fetch Voters Start
 
@@ -215,4 +220,53 @@ export const editVoter = (newVoterInfo: Voter) => {
 
 // Sort Voters Start
 
+export interface SortVotersAction extends Action<string> {
+  payload: { col: keyof Voter }
+}
+
+export type SortVotersActionCreator = (col: keyof Voter) => SortVotersAction
+
+export function isSortVotersAction(action: Action<string>): action is SortVotersAction {
+  return [ SORT_VOTERS_ACTION ].includes(action.type);
+}
+
+export const createSortVotersAction: SortVotersActionCreator = (col: keyof Voter) => ({
+  type: SORT_VOTERS_ACTION, payload: { col },
+});
+
 // Sort Voters End
+
+// Edit VoterId Action
+
+export interface EditVoterIdAction extends Action<string> {
+  payload: { voterId: number }
+}
+
+export type EditVoterIdActionCreator = (carId: number) => EditVoterIdAction
+
+export function isEditVoterIdAction(action: Action<string>): action is EditVoterIdAction {
+  return action.type === EDIT_VOTER_ID_ACTION;
+}
+
+
+export const createEditVoterIdAction: EditVoterIdActionCreator = (voterId) => ({
+  type: EDIT_VOTER_ID_ACTION, payload: { voterId },
+});
+
+// End Edit VoterId Car
+
+// Car Action
+
+export type CancelVoterAction = Action<string>;
+
+export type CancelCarActionCreator = () => CancelVoterAction
+
+export function isCancelVoterAction(action: Action<string>): action is CancelVoterAction {
+  return action.type === CANCEL_VOTER_ACTION;
+}
+
+export const createCancelVoterAction: CancelCarActionCreator = () => ({
+  type: CANCEL_VOTER_ACTION,
+});
+
+// End Car Action

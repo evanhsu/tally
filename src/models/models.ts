@@ -40,8 +40,6 @@ export type Ballot = {
 };
 
 export type VotersSort = {
-  // col: string,
-  // col: CarKeys,
   col: keyof Voter,
   dir: string,
 }

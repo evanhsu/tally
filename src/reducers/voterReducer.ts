@@ -1,13 +1,41 @@
 import { AnyAction, Reducer } from "redux";
-import { Voter } from "../models/models";
+import { Voter, VotersSort } from "../models/models";
 import {
   isFetchVotersRequestAction, 
   isFetchVotersDoneAction,
   FetchVotersDoneAction,
   AppendVoterDoneAction,
   isRegisterVoterDoneAction,
-  isDeleteVoterDoneAction, isEditVoterDoneAction  
+  isRegisterVoterRequestAction,
+  isDeleteVoterDoneAction, 
+  isEditVoterDoneAction, 
+  SortVotersAction, 
+  isSortVotersAction,
+  EditVoterIdAction,
+  isEditVoterIdAction,
+  CancelVoterAction,
+  isCancelVoterAction
 } from "../actions/tallyActions"
+
+export const votersSortReducer: Reducer<VotersSort, SortVotersAction> = (votersSort = { col:'id', dir: 'inc' }, action) => {
+
+  if (isSortVotersAction(action)) {
+
+    if (action.payload.col === votersSort.col) {
+      return {
+        ...votersSort,
+        dir: 'asc' === votersSort.dir ? 'desc' : 'asc',
+      };
+    } else {
+      return {
+        col: action.payload.col,
+        dir: 'asc',
+      };
+    }
+  }
+
+  return votersSort;
+};
 
 const initialVoters = [] as Voter[];
 type VoterReducerActions = FetchVotersDoneAction | AppendVoterDoneAction;
@@ -39,3 +67,22 @@ export const voterReducer: Reducer<Voter[], VoterReducerActions> = (voters = ini
 
   return voters;
 };
+
+type EditVoterIdReducerActions = EditVoterIdAction;
+
+export const editVoterIdReducer: Reducer<number, EditVoterIdReducerActions> = (editCarId = -1, action) => {
+
+  if (isEditVoterIdAction(action)) {
+    return action.payload.voterId;
+  }
+
+  if (isCancelVoterAction(action)) {
+    return -1;
+  }
+
+  if (isEditVoterDoneAction(action)) {
+    return -1;
+  }
+
+  return editCarId;
+}

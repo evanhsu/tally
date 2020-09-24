@@ -28,15 +28,27 @@
     },
     {
       "firstName": "Mekha",
-      "lastName": "V",
-      "address": "123 Tally St",
-      "county": "ABC",
-      "city": "East Coast",
-      "birthdate": "1915-01-01",
-      "email": "lwang@ymail.com",
-      "phone": "555-888-0909",
+      "lastName": "Last",
+      "address": "laisdfh",
+      "county": "Something",
+      "city": "Cool City",
+      "birthdate": "",
+      "email": "a@b",
+      "phone": "2983748172",
       "completedElectionIds": [],
       "id": 3
+    },
+    {
+      "firstName": "Test",
+      "lastName": "",
+      "address": "",
+      "county": "",
+      "city": "",
+      "birthdate": "",
+      "email": "",
+      "phone": "",
+      "completedElectionIds": [],
+      "id": 4
     }
   ],
   "elections": [

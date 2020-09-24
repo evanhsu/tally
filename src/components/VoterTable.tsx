@@ -4,10 +4,14 @@ import {ViewVoter} from "./ViewVoter"
 import {EditVoter} from "./EditVoter"
 
 export type VoterTableProps = {
+    editVoterId: number,
     voters: Voter[],
     votersSort: VotersSort,
-    onSortVoters: (col: VoterKeys) => void,
+    onSortVoters: (col: keyof Voter) => void,
     onDeleteVoter: (voterId: number) => void,
+    onEditVoter: (newVoterInfo: Voter) => void,
+    onCancelVoter: () => void,
+    onEditVoterId: (voterId: number) => void,
   };
   
 type ColHeaderProps = {
@@ -31,22 +35,22 @@ export const VoterTable = (props: VoterTableProps) => {
         <table>
         <thead>
           <tr>
-            <ColHeader carsSort={props.votersSort} col="id" caption="ID" onClick={() => props.onSortVoters} />
-            <ColHeader carsSort={props.votersSort} col="firstName" caption="First Name" onClick={() => props.onSortVoters} />
-            <ColHeader carsSort={props.votersSort} col="lastName" caption="Last Name" onClick={() => props.onSortVoters} />
-            <ColHeader carsSort={props.votersSort} col="address" caption="Address" onClick={() => props.onSortVoters} />
-            <ColHeader carsSort={props.votersSort} col="county" caption="County" onClick={() => props.onSortVoters} />
-            <ColHeader carsSort={props.votersSort} col="city" caption="City" onClick={() => props.onSortVoters} />
-            <ColHeader carsSort={props.votersSort} col="birthdate" caption="Birthdate" onClick={() => props.onSortVoters} />
-            <ColHeader carsSort={props.votersSort} col="email" caption="Email" onClick={() => props.onSortVoters} />
-            <ColHeader carsSort={props.votersSort} col="phone" caption="Phone" onClick={() => props.onSortVoters} />            
+            <ColHeader carsSort={props.votersSort} col="id" caption="ID" onClick={props.onSortVoters} />
+            <ColHeader carsSort={props.votersSort} col="firstName" caption="First Name" onClick={props.onSortVoters} />
+            <ColHeader carsSort={props.votersSort} col="lastName" caption="Last Name" onClick={props.onSortVoters} />
+            <ColHeader carsSort={props.votersSort} col="address" caption="Address" onClick={props.onSortVoters} />
+            <ColHeader carsSort={props.votersSort} col="county" caption="County" onClick={props.onSortVoters} />
+            <ColHeader carsSort={props.votersSort} col="city" caption="City" onClick={props.onSortVoters} />
+            <ColHeader carsSort={props.votersSort} col="birthdate" caption="Birthdate" onClick={props.onSortVoters} />
+            <ColHeader carsSort={props.votersSort} col="email" caption="Email" onClick={props.onSortVoters} />
+            <ColHeader carsSort={props.votersSort} col="phone" caption="Phone" onClick={props.onSortVoters} />            
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {props.voters.map(voter => voter.id === 1000 //editVoterId
-            ? <EditVoter key={voter.id} voter={voter} />
-            : <ViewVoter key={voter.id} voter={voter} onDeleteVoter={props.onDeleteVoter}/>)}
+          {props.voters.map(voter => voter.id === props.editVoterId
+            ? <EditVoter key={voter.id} voter={voter} onEditVoter={props.onEditVoter} onCancelVoter={props.onCancelVoter}/>
+            : <ViewVoter key={voter.id} voter={voter} onDeleteVoter={props.onDeleteVoter} onEditVoterId={props.onEditVoterId} />)}
         </tbody>
       </table>
       );    
