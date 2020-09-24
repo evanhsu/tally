@@ -48,7 +48,7 @@ export const ElectionForm = (props: ElectionFormProps) => {
       questions: [
         ...form.questions,
         {
-          question: "new q",
+          question: "",
           responseType: "bool",
         },
       ],
@@ -78,15 +78,16 @@ export const ElectionForm = (props: ElectionFormProps) => {
                 onChange={change}
               />
             ))}
-          </div>
-        </fieldset>
-        <button
+            <button
           className="add-question-button"
           type="button"
           onClick={addQuestion}
         >
           Add Question
         </button>
+          </div>
+        </fieldset>
+        
         <button
           className="save-election-button"
           type="button"
