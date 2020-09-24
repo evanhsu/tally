@@ -26,5 +26,5 @@ export const Logo = (props: LogoProps) => {
   const { width = 130, height = 150 } = props.size
     ? sizes[props.size]
     : { width: props.width, height: props.height };
-  return <img src={logo} style={{ width: width, height: height }} />;
+  return <img alt="logo" src={logo} style={{ width: width, height: height }} />;
 };

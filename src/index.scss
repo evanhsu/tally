@@ -1,7 +1,29 @@
+@function encodeColor($string) {
+  @if type-of($string) == "color" and str-index(#{$string}, "#") == 1 {
+    $hex: str-slice(ie-hex-str($string), 4);
+    $string: unquote("#{$hex}");
+    @return "%23" + $string;
+  }
+  @return $string;
+}
+
+$backgroundColorLight: #e8ddb5;
+$backgroundColorDark: #507255;
+$colorPrimary: #92b6b1;
+$colorSecondary: antiquewhite;
+$titleFont: "Lobster", cursive;
+$textFont: "sans-serif";
+
+// URL-encode these hex colors so they can be used in the svg url() strings
+$backgroundColorLightForSVG: encodeColor($backgroundColorLight);
+$backgroundColorDarkForSVG: encodeColor($backgroundColorDark);
+
+
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: $textFont;
 }
 
 #root {
@@ -20,10 +42,9 @@ body {
   z-index: 10;
   display: flex;
   flex-grow: 1;
-  font-family: "Lobster", cursive;
+  font-family: $titleFont;
 
   a {
-    background-color: white;
     display: flex;
     flex-grow: 1;
     text-decoration: none;
@@ -35,7 +56,7 @@ body {
       flex-grow: 1;
       transform: rotate(-80deg);
       font-size: 5em;
-      color: antiquewhite;
+      color: $colorSecondary;
     }
   }
   a::after {
@@ -47,28 +68,32 @@ body {
     height: 100%;
     background-repeat: no-repeat;
     content: "";
-    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='white' preserveAspectRatio='none'%3E%3Cpolygon points='0,0 100,0 0,100' /%3E%3C/svg%3E");
-    background-color: black;
+    background-color: $backgroundColorDark;
   }
   a:first-child {
-    background-color: black;
+    background-color: $backgroundColorDark;
   }
   a:first-child::after {
-    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='black' preserveAspectRatio='none'%3E%3Cpolygon points='0,0 100,0 0,100' /%3E%3C/svg%3E");
-    background-color: white;
+    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='#{$backgroundColorDarkForSVG}' preserveAspectRatio='none'%3E%3Cpolygon points='0,0 100,0 0,100' /%3E%3C/svg%3E");
+    background-color: $backgroundColorLight;
   }
+
   a:nth-child(2) {
-    background-color: white;
+    background-color: $backgroundColorLight;
+  }
+  a:nth-child(2)::after {
+    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='#{$backgroundColorLightForSVG}' preserveAspectRatio='none'%3E%3Cpolygon points='0,0 100,0 0,100' /%3E%3C/svg%3E");
   }
   a:nth-child(2) span {
-    color: brown;
+    color: $colorPrimary;
   }
+
   a:nth-child(3) {
-    background-color: black;
+    background-color: $backgroundColorDark;
   }
   a:nth-child(3)::after {
-    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='black' preserveAspectRatio='none'%3E%3Cpolygon points='0,0 100,0 0,100' /%3E%3C/svg%3E");
-    background-color: black;
+    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='#{$backgroundColorDarkForSVG}' preserveAspectRatio='none'%3E%3Cpolygon points='0,0 100,0 0,100' /%3E%3C/svg%3E");
+    background-color: $backgroundColorDark;
   }
 }
 .top-nav {
@@ -83,11 +108,11 @@ body {
   background-color: none;
   justify-content: flex-start;
   align-items: center;
-  font-family: "Lobster";
+  font-family: $titleFont;
 
   a {
     text-decoration: none;
-    color: brown;
+    color: $colorPrimary;
     font-size: 1.5em;
   }
   nav {
@@ -103,6 +128,6 @@ body {
   flex-direction: row;
   width: 300px;
   align-items: center;
-  font-family: "Lobster", cursive;
-  color: brown;
+  font-family: $titleFont;
+  color: $colorPrimary;
 }
