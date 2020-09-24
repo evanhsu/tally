@@ -32,7 +32,7 @@ The server files can be modified in the "server-src" folder. The "server-dist" f
   If your system is running programs on these ports there will be a conflict when these three servers are started. Either disable the other applications running on those ports or change the port numbers for this project's servers within your "package.json" file. To change the port numbers, modify the port values specified in the "config" section of the "package.json". No changes to the JavaScript code is needed as the code reads the environment variables set by the config section.
 
 ## Notes
-* Main Screen
+* HomeLayout Screen
   - "Register Voter"
   - "View sortable list of voters" (with edit/delete button next to each)
   - "Vote" (choose a ballot)
