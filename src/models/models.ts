@@ -21,11 +21,14 @@ export type Voter = {
   completedElectionIds: number[];
 };
 
+export type NewVoter = Omit<Voter, 'id'>;
+
 export type Election = {
   id: number;
   name: string;
   questions: ElectionQuestion[];
 };
+export type NewElection= Omit<Election, 'id'>;
 
 export type Ballot = {
   electionId: number;
