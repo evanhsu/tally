@@ -1,5 +1,6 @@
 import React from "react";
 import { Voter, NewVoter } from "../models/models";
+import { VoterForm } from "./VoterForm";
 import { VoterTable } from './VoterTable'
 
 export type VotersProps = {
@@ -35,6 +36,7 @@ export const Voters = (props: VotersProps) => {
         Register Voter
       </button>
 
+      <VoterForm onRegisterVoter={props.onRegisterVoter}/>
       <VoterTable voters={props.voters} votersSort={{col: "id", dir: "asc"}} onSortVoters={()=>{}} onDeleteVoter={props.onDeleteVoter}/>
       
       {/* <button

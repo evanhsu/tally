@@ -10,21 +10,21 @@ export type VoterTableProps = {
     onDeleteVoter: (voterId: number) => void,
   };
   
-  type ColHeaderProps = {
-    carsSort: VotersSort,
-    col: keyof Voter,
-    caption: string,
-    onClick: (col: keyof Voter) => void,
-  }
+type ColHeaderProps = {
+  carsSort: VotersSort,
+  col: keyof Voter,
+  caption: string,
+  onClick: (col: keyof Voter) => void,
+}
   
-  function ColHeader(props: ColHeaderProps) {
-    return (
-      <th onClick={() => props.onClick(props.col)}>
-        {props.caption}
-        {props.carsSort.col === props.col && <span>({props.carsSort.dir})</span>}
-      </th>
-    );
-  }
+function ColHeader(props: ColHeaderProps) {
+  return (
+    <th onClick={() => props.onClick(props.col)}>
+      {props.caption}
+      {props.carsSort.col === props.col && <span>({props.carsSort.dir})</span>}
+    </th>
+  );
+}
 
 export const VoterTable = (props: VoterTableProps) => {
     return (

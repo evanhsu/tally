@@ -17,7 +17,8 @@ export const ViewVoter = (props: ViewVoterProps) => {
           <td>{props.voter.city}</td>
           <td>{props.voter.birthdate}</td>
           <td>{props.voter.email}</td>
-          <td>{props.voter.city}</td>          
+          <td>{props.voter.city}</td>   
+          <td>{props.voter.phone}</td>         
           <td>
             <button type="button"
               //onClick={() => props.onEditCar(props.car.id)}
