@@ -1,5 +1,152 @@
+@function encodeColor($string) {
+  @if type-of($string) == "color" and str-index(#{$string}, "#") == 1 {
+    $hex: str-slice(ie-hex-str($string), 4);
+    $string: unquote("#{$hex}");
+    @return "%23" + $string;
+  }
+  @return $string;
+}
+
+$backgroundColorLight: #e8ddb5;
+$backgroundColorDark: #507255;
+$colorPrimary: #92b6b1;
+$colorSecondary: antiquewhite;
+$titleFont: "Lobster", cursive;
+$textFont: "sans-serif";
+
+// URL-encode these hex colors so they can be used in the svg url() strings
+$backgroundColorLightForSVG: encodeColor($backgroundColorLight);
+$backgroundColorDarkForSVG: encodeColor($backgroundColorDark);
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: $textFont;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.angle-menu {
+  z-index: 10;
+  display: flex;
+  flex-grow: 1;
+  font-family: $titleFont;
+
+  a {
+    display: flex;
+    flex-grow: 1;
+    text-decoration: none;
+    justify-content: flex-end;
+    align-items: center;
+
+    span {
+      text-align: center;
+      flex-grow: 1;
+      transform: rotate(-80deg);
+      font-size: 5em;
+      color: $colorSecondary;
+    }
+  }
+  a::after {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 150px;
+    height: 100%;
+    background-repeat: no-repeat;
+    content: "";
+    background-color: $backgroundColorDark;
+  }
+  a:first-child {
+    background-color: $backgroundColorDark;
+  }
+  a:first-child::after {
+    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='#{$backgroundColorDarkForSVG}' preserveAspectRatio='none'%3E%3Cpolygon points='0,0 100,0 0,100' /%3E%3C/svg%3E");
+    background-color: $backgroundColorLight;
+  }
+
+  a:nth-child(2) {
+    background-color: $backgroundColorLight;
+  }
+  a:nth-child(2)::after {
+    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='#{$backgroundColorLightForSVG}' preserveAspectRatio='none'%3E%3Cpolygon points='0,0 100,0 0,100' /%3E%3C/svg%3E");
+  }
+  a:nth-child(2) span {
+    color: $colorPrimary;
+  }
+
+  a:nth-child(3) {
+    background-color: $backgroundColorDark;
+  }
+  a:nth-child(3)::after {
+    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='#{$backgroundColorDarkForSVG}' preserveAspectRatio='none'%3E%3Cpolygon points='0,0 100,0 0,100' /%3E%3C/svg%3E");
+    background-color: $backgroundColorDark;
+  }
+}
+.fixed {
+  position: fixed;
+}
+.top-nav {
+  top: 0;
+  left: 0;
+  display: flex;
+  height: 60px;
+  padding: 12px;
+  width: 100vw;
+  z-index: 100;
+  background: none;
+  justify-content: flex-start;
+
+  nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-around;
+    font-family: $titleFont;
+  }
+
+  a {
+    text-decoration: none;
+    color: $colorPrimary;
+    font-size: 1.5em;
+  }
+}
+
+.brand {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  align-items: center;
+  font-family: $titleFont;
+  color: $colorPrimary;
+
+  nav {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.main-content {
+  display: flex;
+  flex-grow: 1;
 }
