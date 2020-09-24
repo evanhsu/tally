@@ -1,115 +1,62 @@
 {
-  "colors": [
-    {
-      "name": "orange",
-      "hexcode": "#330022",
-      "id": 2
-    },
-    {
-      "name": "blue",
-      "hexcode": "#330022",
-      "id": 3
-    },
-    {
-      "name": "purple",
-      "hexcode": "#330022",
-      "id": 4
-    }
-  ],
-  "cars": [
-    {
-      "id": 2,
-      "make": "Tesla",
-      "model": "S",
-      "year": 2018,
-      "color": "red",
-      "price": 125000
-    },
-    {
-      "make": "Honda",
-      "model": "Accord",
-      "year": 2010,
-      "color": "pink",
-      "price": 20199,
-      "id": 6
-    },
-    {
-      "make": "Chevy",
-      "model": "Bug",
-      "year": 2012,
-      "color": "purple",
-      "price": 8993,
-      "id": 7
-    },
-    {
-      "make": "Pontiac",
-      "model": "Firebird",
-      "year": 1979,
-      "color": "olive",
-      "price": 3879,
-      "id": 8
-    },
-    {
-      "make": "Jeep",
-      "model": "Wrangler",
-      "year": 2009,
-      "color": "blue",
-      "price": 28811,
-      "id": 9
-    },
-    {
-      "make": "Jeep",
-      "model": "Liberty",
-      "year": 2012,
-      "color": "bloo",
-      "price": 45000,
-      "id": 10
-    },
-    {
-      "make": "Kia",
-      "model": "Sorrento",
-      "year": 2019,
-      "color": "red",
-      "price": 1000,
-      "id": 11
-    }
-  ],
-  "widgets": [
+  "voters": [
     {
       "id": 1,
-      "name": "Widget A",
-      "description": "Small, Red Widget",
-      "color": "red",
-      "size": "small",
-      "price": 10,
-      "quantity": 99
+      "firstName": "Lucille",
+      "lastName": "Wang",
+      "address": "123 Tally St",
+      "county": "ABC",
+      "city": "East Coast",
+      "birthdate": "1915-01-01",
+      "email": "lwang@ymail.com",
+      "phone": "555-888-0909",
+      "completedElectionIds": []
     },
     {
       "id": 2,
-      "name": "Widget B",
-      "description": "Medium, Blue Widget",
-      "color": "blue",
-      "size": "medium",
-      "price": 5,
-      "quantity": 50
-    },
+      "firstName": "Evan",
+      "lastName": "Hsu",
+      "address": "7777 Dead End Rd",
+      "county": "ABC",
+      "city": "Boise",
+      "birthdate": "1915-02-25",
+      "email": "fake@gmail.com",
+      "phone": "993-765-1234",
+      "completedElectionIds": [
+        1
+      ]
+    }
+  ],
+  "elections": [
     {
-      "id": 3,
-      "name": "Widget C",
-      "description": "Large, Yellow Widget",
-      "color": "yellow",
-      "size": "large",
-      "price": 15,
-      "quantity": 75
-    },
+      "id": 1,
+      "name": "Dinner Poll",
+      "questions": [
+        {
+          "question": "Should I have mexican food for dinner?",
+          "responseType": "bool"
+        },
+        {
+          "question": "Should I have dessert?",
+          "responseType": "bool"
+        }
+      ]
+    }
+  ],
+  "ballots": [
     {
-      "id": 4,
-      "name": "Widget D",
-      "description": "Medium, Red Widget",
-      "color": "red",
-      "size": "medium",
-      "price": 20,
-      "quantity": 21
+      "electionId": 1,
+      "voterId": 1,
+      "answers": [
+        {
+          "question": "Should I have mexican food for dinner?",
+          "voterResponse": "false"
+        },
+        {
+          "question": "Should I have dessert?",
+          "voterResponse": "true"
+        }
+      ]
     }
   ]
 }
