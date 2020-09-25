@@ -31,6 +31,7 @@ export type Election = {
   name: string;
   questions: ElectionQuestion[];
 };
+
 export type NewElection= Omit<Election, 'id'>;
 
 export type Ballot = {

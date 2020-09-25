@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { TallyState } from "../models/tallyState";
 import { Voter } from "../models/models";
 import * as TallyActions from "../actions/tallyActions";
+import { LoginForm } from "../components/LoginForm";
 
 export type SubmitBallotContainerProps = {};
 export function SubmitBallotContainer(props: SubmitBallotContainerProps) {
@@ -25,10 +26,10 @@ export function SubmitBallotContainer(props: SubmitBallotContainerProps) {
   );
 
   if (authorizationInProgress) {
-    return <div>Logging in...</div>;
+    return <div>Still Loading</div>;
   }
   if (currentVoterId < 0) {
-    return <div>Need to Log In (show login form)</div>; //<VoterLoginForm props={stuff}/>;
+    return <LoginForm electionId={1} onLogin={boundActions.authorizeVoter}/>; //<VoterLoginForm props={stuff}/>;
   }
 
   if (loginFormError !== '') {
