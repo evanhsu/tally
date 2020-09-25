@@ -101,6 +101,7 @@
   ],
   "ballots": [
     {
+      "id": 1,
       "electionId": 1,
       "voterId": 1,
       "answers": [
@@ -113,6 +114,63 @@
           "voterResponse": "true"
         }
       ]
+    },
+    {
+      "voterId": 1,
+      "electionId": 1,
+      "answers": [
+        {
+          "question": "Should I have mexican food for dinner?",
+          "voterResponse": "null"
+        },
+        {
+          "question": "Should I have dessert?",
+          "voterResponse": "null"
+        },
+        {
+          "question": "Should I skip dinner?",
+          "voterResponse": "null"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "voterId": 1,
+      "electionId": 1,
+      "answers": [
+        {
+          "question": "Should I have mexican food for dinner?",
+          "voterResponse": "null"
+        },
+        {
+          "question": "Should I have dessert?",
+          "voterResponse": "null"
+        },
+        {
+          "question": "Should I skip dinner?",
+          "voterResponse": "null"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "voterId": 1,
+      "electionId": 1,
+      "answers": [
+        {
+          "question": "Should I have mexican food for dinner?",
+          "voterResponse": "null"
+        },
+        {
+          "question": "Should I have dessert?",
+          "voterResponse": "null"
+        },
+        {
+          "question": "Should I skip dinner?",
+          "voterResponse": "null"
+        }
+      ],
+      "id": 4
     }
   ]
 }

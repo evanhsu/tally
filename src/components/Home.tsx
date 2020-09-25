@@ -8,10 +8,10 @@ export const Home = (props: HomeProps) => {
       <Link to="/voters">
         <span>Register</span>
       </Link>
-      <Link to="/vote">
+      <Link to="/elections">
         <span>Vote</span>
       </Link>
-      <Link to="/elections">
+      <Link to="/elections/create">
         <span>Plan</span>
       </Link>
     </nav>

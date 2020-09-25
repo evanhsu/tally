@@ -1,25 +1,58 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { useSelector, useDispatch } from "react-redux";
 
 import { TallyState } from "../models/tallyState";
-import { Voter } from "../models/models";
-import * as TallyActions from "../actions/tallyActions";
+import { Election, Voter } from "../models/models";
+import { authorizeVoter, saveBallot } from "../actions/tallyActions";
+import { refreshElections } from "../actions/electionActions";
+import { Ballot } from "../components/Ballot";
+import { Loading } from "../components/Loading";
 
 export type SubmitBallotContainerProps = {};
 export function SubmitBallotContainer(props: SubmitBallotContainerProps) {
-  const history = useHistory();
-  const currentVoterId = useSelector<TallyState, Voter["id"]>(
-    (state) => state.currentVoterId
-  );
-  const loginFormError = useSelector<TallyState, string>(state => state.voterLoginForm.errorMessage);
-  const authorizationInProgress = useSelector<TallyState, boolean>(state => state.voterLoginForm.authorizationInProgress);
-
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshElections());
+  }, [dispatch]);
+
+  // Grab the 'electionId' portion of the current URL from react-router
+  const { electionId }: { electionId: string } = useParams();
+  //   const currentVoterId = useSelector<TallyState, Voter["id"]>(
+  //     (state) => state.currentVoterId
+  //   );
+  const currentVoterId = 1;
+
+  const loginFormError = useSelector<TallyState, string>(
+    (state) => state.voterLoginForm.errorMessage
+  );
+  const authorizationInProgress = useSelector<TallyState, boolean>(
+    (state) => state.voterLoginForm.authorizationInProgress
+  );
+  const election = useSelector<TallyState, Election>((state) => {
+    // We assume that the election exists because we've already
+    // checked the current voter's authorization, which requires
+    // us to have already located the matching Election. So we're
+    // not addressing the 'undefined' case.
+    return state.elections.find(
+      (election) => election.id.toString() == electionId
+    )!;
+  });
+
+  const electionsAreLoading = useSelector<TallyState, boolean>(
+    (state) => state.electionsLoading
+  );
+
+  const ballotFormIsSubmitting = useSelector<TallyState, boolean>(
+    (state) => state.ballotForm.isSubmitting
+  );
+
   const boundActions = bindActionCreators(
     {
-      authorizeVoter: TallyActions.authorizeVoter,
+      authorizeVoter: authorizeVoter,
+      saveBallot: saveBallot,
     },
     dispatch
   );
@@ -28,13 +61,29 @@ export function SubmitBallotContainer(props: SubmitBallotContainerProps) {
     return <div>Logging in...</div>;
   }
   if (currentVoterId < 0) {
+    // pass boundActions.authorizeVoter to the login form
     return <div>Need to Log In (show login form)</div>; //<VoterLoginForm props={stuff}/>;
   }
 
-  if (loginFormError !== '') {
+  if (loginFormError !== "") {
+    // pass boundActions.authorizeVoter to the login form
     return <div>Unauthorized (show login form with error)</div>;
   }
 
-  return <div>Logged in, go ahead and vote!</div>;
-  //  return (<Ballot voter={voter} election={} />);
+  if (electionsAreLoading) {
+    return (
+      <div>
+        <Loading size="large" />
+      </div>
+    );
+  }
+
+  return (
+    <Ballot
+      voterId={currentVoterId}
+      election={election}
+      onSaveBallot={boundActions.saveBallot}
+      formIsSubmitting={ballotFormIsSubmitting}
+    />
+  );
 }

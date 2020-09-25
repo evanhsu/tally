@@ -3,6 +3,7 @@ import {
   Election,
   NewElection,
   Ballot,
+  BallotForm,
   VotersSort,
   VoterLoginForm,
 } from "./models";
@@ -17,4 +18,5 @@ export type TallyState = {
   electionForm: NewElection;
   ballots: Ballot[];
   editVoterId: number;
+  ballotForm: BallotForm;
 };

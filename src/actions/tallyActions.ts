@@ -1,7 +1,15 @@
 // This file contains all the actions for the app.
 // We will split up these actions into seperate files if we find that we can/need to
 import { Action, Dispatch } from "redux";
-import { Voter, NewVoter, VoterKeys, Election, LoginInfo } from "../models/models";
+import {
+  Voter,
+  NewVoter,
+  VoterKeys,
+  Election,
+  LoginInfo,
+  Ballot,
+  NewBallot,
+} from "../models/models";
 
 export const FETCH_VOTERS_REQUEST_ACTION = "FETCH_VOTERS_REQUEST_ACTION";
 export const FETCH_VOTERS_DONE_ACTION = "FETCH_VOTERS_DONE_ACTION";
@@ -23,6 +31,10 @@ export const CANCEL_VOTER_ACTION = "CANCEL_VOTER_ACTION";
 export const VOTER_LOGIN_REQUEST_ACTION = "VOTER_LOGIN_REQUEST_ACTION";
 export const VOTER_LOGIN_SUCCESS_ACTION = "VOTER_LOGIN_SUCCESS_ACTION";
 export const VOTER_LOGIN_FAILED_ACTION = "VOTER_LOGIN_FAILED_ACTION";
+
+export const SUBMIT_BALLOT_REQUEST_ACTION = "SUBMIT_BALLOT_REQUEST_ACTION";
+export const SUBMIT_BALLOT_SUCCESS_ACTION = "SUBMIT_BALLOT_SUCCESS_ACTION";
+export const SUBMIT_BALLOT_FAILED_ACTION = "SUBMIT_BALLOT_FAILED_ACTION";
 
 // Fetch Voters Start
 
@@ -306,7 +318,7 @@ export function isCancelVoterAction(
   action: Action<string>
 ): action is CancelVoterAction {
   return action.type === CANCEL_VOTER_ACTION;
-};
+}
 
 export const createCancelVoterAction: CancelCarActionCreator = () => ({
   type: CANCEL_VOTER_ACTION,
@@ -351,51 +363,134 @@ export type VoterLoginFailedActionCreator = (
   message: string
 ) => VoterLoginFailedAction;
 
-
 // Action creators!
-export const createVoterLoginFailedAction: VoterLoginFailedActionCreator = (message) => (
-  {
-    type: VOTER_LOGIN_FAILED_ACTION,
-    payload: {
-      message
-    },
-  });
-
-export const createVoterLoginRequestAction: VoterLoginRequestActionCreator =  (loginInfo: LoginInfo) => ({
-  type: VOTER_LOGIN_REQUEST_ACTION,
-  payload: { ...loginInfo }
+export const createVoterLoginFailedAction: VoterLoginFailedActionCreator = (
+  message
+) => ({
+  type: VOTER_LOGIN_FAILED_ACTION,
+  payload: {
+    message,
+  },
 });
 
-export const createVoterLoginSuccessAction: VoterLoginSuccessActionCreator = (loginInfo: LoginInfo) => ({
+export const createVoterLoginRequestAction: VoterLoginRequestActionCreator = (
+  loginInfo: LoginInfo
+) => ({
+  type: VOTER_LOGIN_REQUEST_ACTION,
+  payload: { ...loginInfo },
+});
+
+export const createVoterLoginSuccessAction: VoterLoginSuccessActionCreator = (
+  loginInfo: LoginInfo
+) => ({
   type: VOTER_LOGIN_SUCCESS_ACTION,
   payload: {
     voterId: loginInfo.voterId,
     electionId: loginInfo.electionId,
-  }
-})
-
+  },
+});
 
 // Type Guards
-export const isVoterLoginRequestAction = (action: Action<string>): action is VoterLoginRequestAction => {
+export const isVoterLoginRequestAction = (
+  action: Action<string>
+): action is VoterLoginRequestAction => {
   return [VOTER_LOGIN_REQUEST_ACTION].includes(action.type);
 };
-export const isVoterLoginSuccessAction = (action: Action<string>): action is VoterLoginSuccessAction => {
+export const isVoterLoginSuccessAction = (
+  action: Action<string>
+): action is VoterLoginSuccessAction => {
   return [VOTER_LOGIN_SUCCESS_ACTION].includes(action.type);
 };
-export const isVoterLoginFailedAction = (action: Action<string>): action is VoterLoginFailedAction => {
+export const isVoterLoginFailedAction = (
+  action: Action<string>
+): action is VoterLoginFailedAction => {
   return [VOTER_LOGIN_FAILED_ACTION].includes(action.type);
 };
-
 
 // Thunks
 export const authorizeVoter = (loginInfo: LoginInfo) => {
   return async (dispatch: Dispatch) => {
-    const res = await fetch("http://localhost:3040/voters/"+loginInfo.voterId);
+    const res = await fetch(
+      "http://localhost:3040/voters/" + loginInfo.voterId
+    );
     const voter = await res.json();
     if (voter.completedElections.includes(loginInfo.electionId)) {
-      dispatch(createVoterLoginFailedAction("You already voted for this Ballot!"))
+      dispatch(
+        createVoterLoginFailedAction("You already voted for this Ballot!")
+      );
     } else {
-      dispatch(createVoterLoginSuccessAction(loginInfo))
-    }    
+      dispatch(createVoterLoginSuccessAction(loginInfo));
+    }
+  };
+};
+
+export interface SubmitBallotRequestAction extends Action<string> {
+  payload: NewBallot;
+}
+export interface SubmitBallotSuccessAction extends Action<string> {
+  payload: Ballot;
+}
+export interface SubmitBallotFailedAction extends Action<string> {
+  payload: NewBallot;
+}
+
+export type SubmitBallotRequestActionCreator = (
+  ballot: NewBallot
+) => SubmitBallotRequestAction;
+export type SubmitBallotSuccessActionCreator = (
+  ballot: Ballot
+) => SubmitBallotSuccessAction;
+export type SubmitBallotFailedActionCreator = (
+  ballot: NewBallot
+) => SubmitBallotFailedAction;
+
+export const CreateSubmitBallotRequestAction: SubmitBallotRequestActionCreator = (
+  ballot
+) => ({
+  type: SUBMIT_BALLOT_REQUEST_ACTION,
+  payload: ballot,
+});
+export const CreateSubmitBallotSuccessAction: SubmitBallotSuccessActionCreator = (
+  ballot
+) => ({
+  type: SUBMIT_BALLOT_SUCCESS_ACTION,
+  payload: ballot,
+});
+export const CreateSubmitBallotFailedAction: SubmitBallotFailedActionCreator = (
+  ballot
+) => ({
+  type: SUBMIT_BALLOT_FAILED_ACTION,
+  payload: ballot,
+});
+
+export const isSubmitBallotRequestAction = (action: Action<string>): action is SubmitBallotRequestAction => {
+  return [SUBMIT_BALLOT_REQUEST_ACTION].includes(action.type);
+};
+export const isSubmitBallotSuccessAction = (action: Action<string>): action is SubmitBallotSuccessAction => {
+  return [SUBMIT_BALLOT_SUCCESS_ACTION].includes(action.type);
+};
+export const isSubmitBallotFailedAction = (action: Action<string>): action is SubmitBallotFailedAction => {
+  return [SUBMIT_BALLOT_FAILED_ACTION].includes(action.type);
+};
+
+export const saveBallot = (newBallot: NewBallot) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(CreateSubmitBallotRequestAction(newBallot));
+
+    const res = await fetch(`http://localhost:3040/ballots`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newBallot),
+    });
+
+    // Something went wrong!
+    if (res.status !== 201) {
+      dispatch(CreateSubmitBallotFailedAction(newBallot));
+      return;
+    }
+
+    // Everything is OK!
+    const ballot = await res.json();
+    dispatch(CreateSubmitBallotSuccessAction(ballot));
   };
 };

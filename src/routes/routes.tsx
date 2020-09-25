@@ -19,9 +19,9 @@ export const Routes = () => {
       {/* Elections Routes */}
       <Route exact path="/elections" component={ViewElectionsContainer} />
       <Route exact path="/elections/create" component={ElectionFormContainer} />
-      <Route exact path="/vote" component={SubmitBallotContainer} />{" "}
+      <Route exact path="/vote/:electionId" component={SubmitBallotContainer} />
       {/* Change this component! */}
-      <Route exact path="/results" component={ViewElectionsContainer} />{" "}
+      <Route exact path="/results" component={ViewElectionsContainer} />
       {/* Change this component! */}
       <Route path="/voters" component={RegisterVoterContainer} />
       {/* <Route exact path="/elections/:electionId" component={Elections} /> */}

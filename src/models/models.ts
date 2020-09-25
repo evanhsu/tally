@@ -32,11 +32,21 @@ export type Election = {
   questions: ElectionQuestion[];
 };
 export type NewElection= Omit<Election, 'id'>;
+export const emptyElection = {
+  id: -1,
+  name: '',
+  questions: [] as ElectionQuestion[],
+};
 
 export type Ballot = {
+  id: number;
   electionId: number;
   voterId: number;
   answers: ElectionAnswer[];
+};
+export type NewBallot = Omit<Ballot, 'id'>;
+export type BallotForm = {
+  isSubmitting: boolean,
 };
 
 export type VotersSort = {
