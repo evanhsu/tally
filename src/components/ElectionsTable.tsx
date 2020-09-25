@@ -24,12 +24,12 @@ export const ElectionsTable = (props: ElectionsTableProps) => {
       </thead>
       <tbody>
         {elections.map((election) => (
-          <tr>
+          <tr key={election.id}>
             <td>{election.name}</td>
             <td>
               <ul>
-                {election.questions.map((question) => (
-                  <li>{question.question}</li>
+                {election.questions.map((question, idx) => (
+                  <li key={`${idx}${question.question}`}>{question.question}</li>
                 ))}
               </ul>
             </td>
