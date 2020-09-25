@@ -5,7 +5,7 @@ import { VoterTable } from './VoterTable';
 export type VotersProps = {
     onRegisterVoter: (newVoter: NewVoter) => void,
     onViewRegisteredVoters: () => void,
-    onDeleteVoter: (voterId: number) => void,
+    onDeleteVoters: (voterIds: number[]) => void,
     onEditVoter: (newVoterInfo: Voter) => void,
     onSortVoters: (col: keyof Voter) => void,
     onCancelVoter: () => void,
@@ -18,8 +18,8 @@ export type VotersProps = {
 
 export const Voters = (props: VotersProps) => {
   return (
-    <div className="voter-page">
-      <h1>Voters Page</h1>
+    <div className="voter-page content-wrapper">
+      <h1>Voters</h1>
 
       <button
         type="button"
@@ -33,7 +33,7 @@ export const Voters = (props: VotersProps) => {
         voters={props.voters}
         votersSort={props.votersSort}
         onSortVoters={props.onSortVoters}
-        onDeleteVoter={props.onDeleteVoter}
+        onDeleteVoters={props.onDeleteVoters}
         onEditVoter={props.onEditVoter}
         onCancelVoter={props.onCancelVoter}
         onEditVoterId={props.onEditVoterId}

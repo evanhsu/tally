@@ -3,9 +3,11 @@ import { Voter } from "../models/models";
 
 export type ViewVoterProps = {
     voter: Voter,
-    onDeleteVoter: (voterId: number) => void,
     onEditVoterId: (voterId: number) => void,
+    onToggleDelete: (voterId: number) => void,
 };
+
+
 
 export const ViewVoter = (props: ViewVoterProps) => {
     return (
@@ -17,18 +19,14 @@ export const ViewVoter = (props: ViewVoterProps) => {
           <td>{props.voter.county}</td>
           <td>{props.voter.city}</td>
           <td>{props.voter.birthdate}</td>
-          <td>{props.voter.email}</td>
-          <td>{props.voter.city}</td>   
+          <td>{props.voter.email}</td>   
           <td>{props.voter.phone}</td>         
           <td>
             <button type="button"
               onClick={() => props.onEditVoterId(props.voter.id)}
               >Edit
               </button>
-            <button type="button"
-              onClick={() => props.onDeleteVoter(props.voter.id)}
-              >Delete
-              </button>
           </td>
+          <input type="checkbox" onChange={() => props.onToggleDelete(props.voter.id)} id={String(props.voter.id)} name={String(props.voter.id)} value={String(props.voter.id)}/>
         </tr>
       );}

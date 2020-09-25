@@ -158,17 +158,23 @@ export const appendVoter = (newVoter: NewVoter) => {
 
 // Delete Voter Start
 
-export type DeleteVoterRequestAction = Action<string>;
-
-export interface DeleteVoterDoneAction extends Action {
+export interface DeleteVoterRequestAction extends Action<string> {
   payload: {
-    voterId: number;
+    voterIds: number[];
   };
 }
 
-export type DeleteVoterRequestActionCreator = () => DeleteVoterRequestAction;
+export interface DeleteVoterDoneAction extends Action<string> {
+  payload: {
+    voterIds: number[];
+  };
+}
+
+export type DeleteVoterRequestActionCreator = (
+  voterIds: number[]
+) => DeleteVoterRequestAction;
 export type DeleteVoterDoneActionCreator = (
-  voterId: number
+  voterIds: number[]
 ) => DeleteVoterDoneAction;
 
 export function isDeleteVoterRequestAction(
@@ -183,27 +189,32 @@ export function isDeleteVoterDoneAction(
   return [DELETE_VOTER_DONE_ACTION].includes(action.type);
 }
 
-export const createDeleteVoterRequestAction: DeleteVoterRequestActionCreator = () => ({
+export const createDeleteVoterRequestAction: DeleteVoterRequestActionCreator = (
+  voterIds: number[]
+) => ({
   type: DELETE_VOTER_REQUEST_ACTION,
+  payload: {
+    voterIds,
+  },
 });
 
 export const createDeleteVoterDoneAction: DeleteVoterDoneActionCreator = (
-  voterId: number
+  voterIds: number[]
 ) => ({
   type: DELETE_VOTER_DONE_ACTION,
   payload: {
-    voterId,
+    voterIds,
   },
 });
 
 export const deleteVoter = (voterId: number) => {
   // this is the function object which is dispatched
   return async (dispatch: Dispatch) => {
-    dispatch(createDeleteVoterRequestAction());
+    dispatch(createDeleteVoterRequestAction([voterId]));
     await fetch("http://localhost:3040/voters/" + voterId, {
       method: "DELETE",
     });
-    dispatch(createDeleteVoterDoneAction(voterId));
+    dispatch(createDeleteVoterDoneAction([voterId]));
   };
 };
 
@@ -333,51 +344,57 @@ export const createCancelVoterAction: CancelCarActionCreator = () => ({
 
 export interface VoterLoginRequestAction extends Action<string> {
   payload: {
-    authorizationInProgress: boolean,
-    errorMessage: string,
+    authorizationInProgress: boolean;
+    errorMessage: string;
   };
 }
 
 export interface VoterLoginFailedAction extends Action<string> {
   payload: {
-    authorizationInProgress: boolean,
-    errorMessage: string
+    authorizationInProgress: boolean;
+    errorMessage: string;
   };
 }
 
 export interface VoterLoginSuccessAction extends Action<string> {
   payload: {
-    voterId: Voter["id"];    
+    voterId: Voter["id"];
   };
 }
 
 // Action Creators TYPES
-export type VoterLoginRequestActionCreator = (loginInfo: VoterLoginForm) => VoterLoginRequestAction;
+export type VoterLoginRequestActionCreator = (
+  loginInfo: VoterLoginForm
+) => VoterLoginRequestAction;
 
-export type VoterLoginSuccessActionCreator = (loginInfo: LoginInfo) => VoterLoginSuccessAction;
+export type VoterLoginSuccessActionCreator = (
+  loginInfo: LoginInfo
+) => VoterLoginSuccessAction;
 
 export type VoterLoginFailedActionCreator = (loginInfo: {
-  authorizationInProgress: boolean,
-  errorMessage: string
-}
-) => VoterLoginFailedAction;
+  authorizationInProgress: boolean;
+  errorMessage: string;
+}) => VoterLoginFailedAction;
 
 // Action creators!
-export const createVoterLoginFailedAction: VoterLoginFailedActionCreator = (loginInfo: VoterLoginForm) => (
-  {
-    type: VOTER_LOGIN_FAILED_ACTION,
-    payload: {
-      authorizationInProgress: loginInfo.authorizationInProgress,
-      errorMessage: loginInfo.errorMessage
-    },
-  });
-
-export const createVoterLoginAction: VoterLoginRequestActionCreator =  (loginInfo: VoterLoginForm) => ({
-  type: VOTER_LOGIN_REQUEST_ACTION,
-  payload: { 
+export const createVoterLoginFailedAction: VoterLoginFailedActionCreator = (
+  loginInfo: VoterLoginForm
+) => ({
+  type: VOTER_LOGIN_FAILED_ACTION,
+  payload: {
     authorizationInProgress: loginInfo.authorizationInProgress,
-    errorMessage: loginInfo.errorMessage
-  }
+    errorMessage: loginInfo.errorMessage,
+  },
+});
+
+export const createVoterLoginAction: VoterLoginRequestActionCreator = (
+  loginInfo: VoterLoginForm
+) => ({
+  type: VOTER_LOGIN_REQUEST_ACTION,
+  payload: {
+    authorizationInProgress: loginInfo.authorizationInProgress,
+    errorMessage: loginInfo.errorMessage,
+  },
 });
 
 export const createVoterLoginSuccessAction: VoterLoginSuccessActionCreator = (
@@ -386,9 +403,8 @@ export const createVoterLoginSuccessAction: VoterLoginSuccessActionCreator = (
   type: VOTER_LOGIN_SUCCESS_ACTION,
   payload: {
     voterId: loginInfo.voterId,
-  }
-})
-
+  },
+});
 
 // Type Guards
 export const isVoterLoginRequestAction = (
@@ -410,14 +426,34 @@ export const isVoterLoginFailedAction = (
 // Thunks
 export const authorizeVoter = (loginInfo: LoginInfo) => {
   return async (dispatch: Dispatch) => {
-    dispatch(createVoterLoginAction({authorizationInProgress: true, errorMessage: ''}))
-    const res = await fetch("http://localhost:3040/voters/"+loginInfo.voterId);
+    dispatch(
+      createVoterLoginAction({
+        authorizationInProgress: true,
+        errorMessage: "",
+      })
+    );
+    const res = await fetch(
+      "http://localhost:3040/voters/" + loginInfo.voterId
+    );
     const voter = await res.json();
-    if (voter.completedElectionIds && voter.completedElectionIds.includes(loginInfo.electionId)) {
-      dispatch(createVoterLoginAction({authorizationInProgress: false, errorMessage: 'You already voted for this Ballot!'}))
+    if (
+      voter.completedElectionIds &&
+      voter.completedElectionIds.includes(loginInfo.electionId)
+    ) {
+      dispatch(
+        createVoterLoginAction({
+          authorizationInProgress: false,
+          errorMessage: "You already voted for this Ballot!",
+        })
+      );
     } else {
-      dispatch(createVoterLoginAction({authorizationInProgress: false, errorMessage: ''}))
-      dispatch(createVoterLoginSuccessAction(loginInfo))
+      dispatch(
+        createVoterLoginAction({
+          authorizationInProgress: false,
+          errorMessage: "",
+        })
+      );
+      dispatch(createVoterLoginSuccessAction(loginInfo));
     }
   };
 };
@@ -461,13 +497,19 @@ export const CreateSubmitBallotFailedAction: SubmitBallotFailedActionCreator = (
   payload: ballot,
 });
 
-export const isSubmitBallotRequestAction = (action: Action<string>): action is SubmitBallotRequestAction => {
+export const isSubmitBallotRequestAction = (
+  action: Action<string>
+): action is SubmitBallotRequestAction => {
   return [SUBMIT_BALLOT_REQUEST_ACTION].includes(action.type);
 };
-export const isSubmitBallotSuccessAction = (action: Action<string>): action is SubmitBallotSuccessAction => {
+export const isSubmitBallotSuccessAction = (
+  action: Action<string>
+): action is SubmitBallotSuccessAction => {
   return [SUBMIT_BALLOT_SUCCESS_ACTION].includes(action.type);
 };
-export const isSubmitBallotFailedAction = (action: Action<string>): action is SubmitBallotFailedAction => {
+export const isSubmitBallotFailedAction = (
+  action: Action<string>
+): action is SubmitBallotFailedAction => {
   return [SUBMIT_BALLOT_FAILED_ACTION].includes(action.type);
 };
 
@@ -487,18 +529,26 @@ export const saveBallot = (newBallot: NewBallot) => {
       return;
     }
 
-    const getVoterRes = await fetch(`http://localhost:3040/voters/${newBallot.voterId}`);
+    const getVoterRes = await fetch(
+      `http://localhost:3040/voters/${newBallot.voterId}`
+    );
     const voter = await getVoterRes.json();
 
-    const newCompleteElectionIds = [...voter.completedElectionIds, newBallot.electionId];
-    const updateVoterRes = await fetch(`http://localhost:3040/voters/${newBallot.voterId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        ...voter,
-        completedElectionIds: newCompleteElectionIds,
-      }),
-    });
+    const newCompleteElectionIds = [
+      ...voter.completedElectionIds,
+      newBallot.electionId,
+    ];
+    const updateVoterRes = await fetch(
+      `http://localhost:3040/voters/${newBallot.voterId}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...voter,
+          completedElectionIds: newCompleteElectionIds,
+        }),
+      }
+    );
 
     // Something went wrong!
     if (updateVoterRes.status !== 201) {
@@ -511,9 +561,6 @@ export const saveBallot = (newBallot: NewBallot) => {
     dispatch(CreateSubmitBallotSuccessAction(ballot));
   };
 };
-
-
-
 
 export interface RefreshBallotsRequestAction extends Action<string> {}
 export interface RefreshBallotsFailedAction extends Action<string> {}
@@ -563,9 +610,27 @@ export const refreshBallots = () => {
     if (res.status === 200) {
       const ballots = await res.json();
       dispatch(createRefreshBallotsSuccessAction(ballots));
-    }
-    else {
+    } else {
       dispatch(createRefreshBallotsFailedAction());
     }
+  };
+};
+
+export const deleteMultipleVoters = (voterIds: Voter["id"][]) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(createDeleteVoterRequestAction(voterIds));
+    const deletePromises: Promise<any>[] = [];
+
+    voterIds.forEach(async (voterId) => {
+      deletePromises.push(
+        fetch(`http://localhost:3040/voters/${voterId}`, {
+          method: "DELETE",
+        })
+      );
+    });
+
+    Promise.all(deletePromises).then(() =>
+      dispatch(createDeleteVoterDoneAction(voterIds))
+    );
   };
 };

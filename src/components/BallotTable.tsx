@@ -1,6 +1,7 @@
 import React from "react";
 import { Ballot } from "../models/models";
 import { ViewBallot } from "./ViewBallot";
+import { Confirmation } from "./Confirmation";
 
 export type BallotTableProps = {
   ballots: Ballot[];
@@ -8,6 +9,7 @@ export type BallotTableProps = {
 
 export const BallotTable = (props: BallotTableProps) => {
   return (
+    <div className="ballot-table-page content-wrapper">
     <table>
       <thead>
         <tr>
@@ -23,5 +25,7 @@ export const BallotTable = (props: BallotTableProps) => {
         ))}
       </tbody>
     </table>
+    <Confirmation message="You are done viewing all your ballots" buttonText="Back To Home Page" handleClick={() => null} /> 
+     </div>
   );
 };
