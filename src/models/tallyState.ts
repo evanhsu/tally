@@ -17,6 +17,7 @@ export type TallyState = {
   electionsLoading: boolean;
   electionForm: NewElection;
   ballots: Ballot[];
+  ballotsLoading: boolean;
   editVoterId: number;
   ballotForm: BallotForm;
 };

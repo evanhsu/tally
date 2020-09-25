@@ -21,10 +21,9 @@ export function SubmitBallotContainer(props: SubmitBallotContainerProps) {
 
   // Grab the 'electionId' portion of the current URL from react-router
   const { electionId }: { electionId: string } = useParams();
-  //   const currentVoterId = useSelector<TallyState, Voter["id"]>(
-  //     (state) => state.currentVoterId
-  //   );
-  const currentVoterId = 1;
+    const currentVoterId = useSelector<TallyState, Voter["id"]>(
+      (state) => state.currentVoterId
+    );
 
   const loginFormError = useSelector<TallyState, string>(
     (state) => state.voterLoginForm.errorMessage
@@ -62,12 +61,7 @@ export function SubmitBallotContainer(props: SubmitBallotContainerProps) {
     return <div>Still Loading</div>;
   }
   if (currentVoterId < 0) {
-    return <LoginForm electionId={1} onLogin={boundActions.authorizeVoter}/>; //<VoterLoginForm props={stuff}/>;
-  }
-
-  if (loginFormError !== "") {
-    // pass boundActions.authorizeVoter to the login form
-    return <div>Unauthorized (show login form with error)</div>;
+    return <LoginForm errorMessage={loginFormError} electionId={Number(electionId)} onLogin={boundActions.authorizeVoter}/>; //<VoterLoginForm props={stuff}/>;
   }
 
   if (electionsAreLoading) {

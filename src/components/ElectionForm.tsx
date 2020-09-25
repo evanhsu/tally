@@ -58,7 +58,8 @@ export const ElectionForm = (props: ElectionFormProps) => {
   };
 
   const saveElectionThenNavigate = (electionForm: NewElection) => {
-
+    saveElection(electionForm);
+    // TODO: we should navigate to the Election summary page after saving
   };
 
   return (

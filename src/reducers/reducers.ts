@@ -12,6 +12,7 @@ import { electionFormReducer } from "./electionFormReducer";
 import { currentVoterIdReducer } from "./currentVoterIdReducer";
 import { voterLoginFormReducer } from "./voterLoginFormReducer";
 import { ballotFormReducer } from "./ballotFormReducer";
+import { ballotsLoadingReducer } from "./ballotsLoadingReducer";
 
 export const tallyReducer: Reducer<TallyState, AnyAction> = combineReducers({
   currentVoterId: currentVoterIdReducer,
@@ -23,5 +24,6 @@ export const tallyReducer: Reducer<TallyState, AnyAction> = combineReducers({
   electionsLoading: electionsLoadingReducer,
   electionForm: electionFormReducer,
   ballots: ballotReducer,
+  ballotsLoading: ballotsLoadingReducer,
   ballotForm: ballotFormReducer,
 });

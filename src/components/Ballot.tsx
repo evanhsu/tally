@@ -33,26 +33,26 @@ export function Ballot(props: BallotProps) {
 
     const boolAnswerTypeOptions = () => {
         return [
-            <option value="null">--</option>,
-            <option value="true">True</option>,
-            <option value="false">False</option>
+            <option key='null' value="null">--</option>,
+            <option key='true' value="true">True</option>,
+            <option key='false' value="false">False</option>
         ];
     }
     
     return (
-        <>
+        <div className="form-container">
             <form>
-                {props.election.questions.map(question =>  
-                    <>
-                        <label>{question.question}</label>
-                        <select id={question.question}>
-                        {question.responseType === "bool" && boolAnswerTypeOptions()}
+                {props.election.questions.map(q =>  
+                    <div key={q.question}>
+                        <label>{q.question}</label>
+                        <select id={q.question} onChange={change}>
+                        {q.responseType === "bool" && boolAnswerTypeOptions()}
                         </select>
-                    </>)
+                    </div>)
                 }
             </form>
 
             <button type="button" onClick={submitBallot}>Cast my vote</button>
-        </>
+        </div>
     );
 }

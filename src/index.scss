@@ -151,7 +151,7 @@ body {
   flex-grow: 1;
 }
 
-.append-election-form-container {
+.form-container {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
@@ -160,14 +160,14 @@ body {
   font-family: $titleFont;
   color: $colorPrimary;
 }
-.append-election-form {
+form {
   display: flex;
   flex-direction: column;
   min-width: 500px;
   font-family: $textFont;
 
   button {
-    margin: 12px
+    margin: 12px;
   }
 
   input {
@@ -178,5 +178,12 @@ body {
   .election-question {
     display: flex;
     flex-direction: column;
+  }
+}
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  a {
+    color: $backgroundColorLight;
   }
 }

@@ -37,6 +37,10 @@ export const SUBMIT_BALLOT_REQUEST_ACTION = "SUBMIT_BALLOT_REQUEST_ACTION";
 export const SUBMIT_BALLOT_SUCCESS_ACTION = "SUBMIT_BALLOT_SUCCESS_ACTION";
 export const SUBMIT_BALLOT_FAILED_ACTION = "SUBMIT_BALLOT_FAILED_ACTION";
 
+export const REFRESH_BALLOTS_REQUEST_ACTION = "REFRESH_BALLOTS_REQUEST_ACTION";
+export const REFRESH_BALLOTS_SUCCESS_ACTION = "REFRESH_BALLOTS_SUCCESS_ACTION";
+export const REFRESH_BALLOTS_FAILED_ACTION = "REFRESH_BALLOTS_FAILED_ACTION";
+
 // Fetch Voters Start
 
 export type FetchVotersRequestAction = Action<string>;
@@ -485,8 +489,85 @@ export const saveBallot = (newBallot: NewBallot) => {
       return;
     }
 
+    const getVoterRes = await fetch(`http://localhost:3040/voters/${newBallot.voterId}`);
+    const voter = await getVoterRes.json();
+
+    const newCompleteElectionIds = [...voter.completedElectionIds, newBallot.electionId];
+    const updateVoterRes = await fetch(`http://localhost:3040/voters/${newBallot.voterId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        ...voter,
+        completedElectionIds: newCompleteElectionIds,
+      }),
+    });
+
+    // Something went wrong!
+    if (updateVoterRes.status !== 201) {
+      dispatch(CreateSubmitBallotFailedAction(newBallot));
+      return;
+    }
+
     // Everything is OK!
     const ballot = await res.json();
     dispatch(CreateSubmitBallotSuccessAction(ballot));
+  };
+};
+
+
+
+
+export interface RefreshBallotsRequestAction extends Action<string> {}
+export interface RefreshBallotsFailedAction extends Action<string> {}
+export interface RefreshBallotsSuccessAction extends Action<string> {
+  payload: Ballot[];
+}
+
+export type RefreshBallotsRequestActionCreator = () => RefreshBallotsRequestAction;
+export type RefreshBallotsSuccessActionCreator = (
+  ballots: Ballot[]
+) => RefreshBallotsSuccessAction;
+export type RefreshBallotsFailedActionCreator = () => RefreshBallotsFailedAction;
+
+export const createRefreshBallotsRequestAction: RefreshBallotsRequestActionCreator = () => ({
+  type: REFRESH_BALLOTS_REQUEST_ACTION,
+});
+export const createRefreshBallotsSuccessAction: RefreshBallotsSuccessActionCreator = (
+  ballots
+) => ({
+  type: REFRESH_BALLOTS_SUCCESS_ACTION,
+  payload: ballots,
+});
+export const createRefreshBallotsFailedAction: RefreshBallotsFailedActionCreator = () => ({
+  type: REFRESH_BALLOTS_FAILED_ACTION,
+});
+
+export const isRefreshBallotsRequestAction = (
+  action: Action<string>
+): action is RefreshBallotsRequestAction => {
+  return [REFRESH_BALLOTS_REQUEST_ACTION].includes(action.type);
+};
+export const isRefreshBallotsSuccessAction = (
+  action: Action<string>
+): action is RefreshBallotsSuccessAction => {
+  return [REFRESH_BALLOTS_SUCCESS_ACTION].includes(action.type);
+};
+export const isRefreshBallotsFailedAction = (
+  action: Action<string>
+): action is RefreshBallotsFailedAction => {
+  return [REFRESH_BALLOTS_FAILED_ACTION].includes(action.type);
+};
+export const refreshBallots = () => {
+  return async (dispatch: Dispatch) => {
+    dispatch(createRefreshBallotsRequestAction());
+    const res = await fetch("http://localhost:3040/ballots");
+
+    if (res.status === 200) {
+      const ballots = await res.json();
+      dispatch(createRefreshBallotsSuccessAction(ballots));
+    }
+    else {
+      dispatch(createRefreshBallotsFailedAction());
+    }
   };
 };
