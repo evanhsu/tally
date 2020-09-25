@@ -150,3 +150,33 @@ body {
   display: flex;
   flex-grow: 1;
 }
+
+.append-election-form-container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: $titleFont;
+  color: $colorPrimary;
+}
+.append-election-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 500px;
+  font-family: $textFont;
+
+  button {
+    margin: 12px
+  }
+
+  input {
+    display: flex;
+    flex-grow: 1;
+    margin: 8px;
+  }
+  .election-question {
+    display: flex;
+    flex-direction: column;
+  }
+}

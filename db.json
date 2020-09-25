@@ -63,8 +63,40 @@
         {
           "question": "Should I have dessert?",
           "responseType": "bool"
+        },
+        {
+          "question": "Should I skip dinner?",
+          "responseType": "bool"
         }
       ]
+    },
+    {
+      "id": 2,
+      "name": "Pet Poll",
+      "questions": [
+        {
+          "question": "Should I get a cat?",
+          "responseType": "bool"
+        },
+        {
+          "question": "Should I get a dog?",
+          "responseType": "bool"
+        }
+      ]
+    },
+    {
+      "name": "Cats or Dogs",
+      "questions": [
+        {
+          "question": "Cats?",
+          "responseType": "bool"
+        },
+        {
+          "question": "Dogs?",
+          "responseType": "bool"
+        }
+      ],
+      "id": 3
     }
   ],
   "ballots": [

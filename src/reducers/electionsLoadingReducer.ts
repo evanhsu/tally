@@ -3,18 +3,17 @@ import { isRefreshElectionsDoneAction, isRefreshElectionsRequestAction } from ".
 import { Election } from "../models/models";
 
 // TODO: we can change AnyAction to be a more specific type
-const initialElections = [] as Election[];
-export const electionReducer: Reducer<Election[], AnyAction> = (
-  elections = initialElections,
+export const electionsLoadingReducer: Reducer<boolean, AnyAction> = (
+  isLoading = false,
   action
 ) => {
   if(isRefreshElectionsRequestAction(action)) {
-    // TODO: update loading state 
+      return true;
   }
 
   if(isRefreshElectionsDoneAction(action)) {
-    return [...action.payload];
+      return false;
   }
 
-  return [ ...elections ];
+  return isLoading;
 };
