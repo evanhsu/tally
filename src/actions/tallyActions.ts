@@ -9,6 +9,7 @@ import {
   LoginInfo,
   Ballot,
   NewBallot,
+  VoterLoginForm,
 } from "../models/models";
 
 export const FETCH_VOTERS_REQUEST_ACTION = "FETCH_VOTERS_REQUEST_ACTION";
@@ -330,54 +331,51 @@ export const createCancelVoterAction: CancelCarActionCreator = () => ({
 
 export interface VoterLoginRequestAction extends Action<string> {
   payload: {
-    voterId: Voter["id"];
-    electionId: Election["id"];
+    authorizationInProgress: boolean,
+    errorMessage: string,
   };
 }
 
 export interface VoterLoginFailedAction extends Action<string> {
   payload: {
-    message: string;
+    authorizationInProgress: boolean,
+    errorMessage: string
   };
 }
 
 export interface VoterLoginSuccessAction extends Action<string> {
   payload: {
-    voterId: Voter["id"];
-    electionId: Election["id"];
+    voterId: Voter["id"];    
   };
 }
 
 // Action Creators TYPES
-export type VoterLoginRequestActionCreator = (loginInfo: {
-  voterId: Voter["id"];
-  electionId: Voter["id"];
-}) => VoterLoginRequestAction;
+export type VoterLoginRequestActionCreator = (loginInfo: VoterLoginForm) => VoterLoginRequestAction;
 
-export type VoterLoginSuccessActionCreator = (loginInfo: {
-  voterId: Voter["id"];
-  electionId: Voter["id"];
-}) => VoterLoginSuccessAction;
+export type VoterLoginSuccessActionCreator = (loginInfo: LoginInfo) => VoterLoginSuccessAction;
 
-export type VoterLoginFailedActionCreator = (
-  message: string
+export type VoterLoginFailedActionCreator = (loginInfo: {
+  authorizationInProgress: boolean,
+  errorMessage: string
+}
 ) => VoterLoginFailedAction;
 
 // Action creators!
-export const createVoterLoginFailedAction: VoterLoginFailedActionCreator = (
-  message
-) => ({
-  type: VOTER_LOGIN_FAILED_ACTION,
-  payload: {
-    message,
-  },
-});
+export const createVoterLoginFailedAction: VoterLoginFailedActionCreator = (loginInfo: VoterLoginForm) => (
+  {
+    type: VOTER_LOGIN_FAILED_ACTION,
+    payload: {
+      authorizationInProgress: loginInfo.authorizationInProgress,
+      errorMessage: loginInfo.errorMessage
+    },
+  });
 
-export const createVoterLoginRequestAction: VoterLoginRequestActionCreator = (
-  loginInfo: LoginInfo
-) => ({
+export const createVoterLoginAction: VoterLoginRequestActionCreator =  (loginInfo: VoterLoginForm) => ({
   type: VOTER_LOGIN_REQUEST_ACTION,
-  payload: { ...loginInfo },
+  payload: { 
+    authorizationInProgress: loginInfo.authorizationInProgress,
+    errorMessage: loginInfo.errorMessage
+  }
 });
 
 export const createVoterLoginSuccessAction: VoterLoginSuccessActionCreator = (
@@ -386,9 +384,9 @@ export const createVoterLoginSuccessAction: VoterLoginSuccessActionCreator = (
   type: VOTER_LOGIN_SUCCESS_ACTION,
   payload: {
     voterId: loginInfo.voterId,
-    electionId: loginInfo.electionId,
-  },
-});
+  }
+})
+
 
 // Type Guards
 export const isVoterLoginRequestAction = (
@@ -410,16 +408,14 @@ export const isVoterLoginFailedAction = (
 // Thunks
 export const authorizeVoter = (loginInfo: LoginInfo) => {
   return async (dispatch: Dispatch) => {
-    const res = await fetch(
-      "http://localhost:3040/voters/" + loginInfo.voterId
-    );
+    dispatch(createVoterLoginAction({authorizationInProgress: true, errorMessage: ''}))
+    const res = await fetch("http://localhost:3040/voters/"+loginInfo.voterId);
     const voter = await res.json();
-    if (voter.completedElections.includes(loginInfo.electionId)) {
-      dispatch(
-        createVoterLoginFailedAction("You already voted for this Ballot!")
-      );
+    if (voter.completedElectionIds && voter.completedElectionIds.includes(loginInfo.electionId)) {
+      dispatch(createVoterLoginAction({authorizationInProgress: false, errorMessage: 'You already voted for this Ballot!'}))
     } else {
-      dispatch(createVoterLoginSuccessAction(loginInfo));
+      dispatch(createVoterLoginAction({authorizationInProgress: false, errorMessage: ''}))
+      dispatch(createVoterLoginSuccessAction(loginInfo))
     }
   };
 };

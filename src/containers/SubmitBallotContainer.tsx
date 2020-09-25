@@ -9,6 +9,7 @@ import { authorizeVoter, saveBallot } from "../actions/tallyActions";
 import { refreshElections } from "../actions/electionActions";
 import { Ballot } from "../components/Ballot";
 import { Loading } from "../components/Loading";
+import { LoginForm } from "../components/LoginForm";
 
 export type SubmitBallotContainerProps = {};
 export function SubmitBallotContainer(props: SubmitBallotContainerProps) {
@@ -58,11 +59,10 @@ export function SubmitBallotContainer(props: SubmitBallotContainerProps) {
   );
 
   if (authorizationInProgress) {
-    return <div>Logging in...</div>;
+    return <div>Still Loading</div>;
   }
   if (currentVoterId < 0) {
-    // pass boundActions.authorizeVoter to the login form
-    return <div>Need to Log In (show login form)</div>; //<VoterLoginForm props={stuff}/>;
+    return <LoginForm electionId={1} onLogin={boundActions.authorizeVoter}/>; //<VoterLoginForm props={stuff}/>;
   }
 
   if (loginFormError !== "") {
