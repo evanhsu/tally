@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "../hooks/useForm";
-import { Voter, NewVoter } from "../models/models";
+import { Voter } from "../models/models";
 
 export type EditVoterProps = {
     voter: Voter

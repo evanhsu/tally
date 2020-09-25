@@ -3,7 +3,6 @@ import { VoterLoginForm } from "../models/models";
 
 import {
   isVoterLoginRequestAction,
-  isVoterLoginSuccessAction,
 } from "../actions/tallyActions";
 
 // TODO: we can change AnyAction to be a more specific type

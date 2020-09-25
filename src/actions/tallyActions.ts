@@ -4,8 +4,6 @@ import { Action, Dispatch } from "redux";
 import {
   Voter,
   NewVoter,
-  VoterKeys,
-  Election,
   LoginInfo,
   Ballot,
   NewBallot,

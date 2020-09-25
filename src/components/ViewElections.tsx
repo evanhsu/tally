@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { bindActionCreators } from "redux";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 

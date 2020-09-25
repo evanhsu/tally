@@ -6,7 +6,6 @@ import { ElectionFormContainer } from "../components/ElectionForm";
 import { Home } from "../components/Home";
 import ErrorPage from "../components/ErrorPage";
 import NoMatch from "../components/NoMatch";
-import { VoterForm } from "../components/VoterForm";
 import { SubmitBallotContainer } from "../containers/SubmitBallotContainer";
 import { BallotTableContainer } from "../containers/BallotTableContainer";
 

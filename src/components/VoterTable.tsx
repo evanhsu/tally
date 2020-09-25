@@ -1,5 +1,5 @@
 import React from "react";
-import { Voter, NewVoter, VotersSort, VoterKeys } from "../models/models";
+import { Voter, VotersSort } from "../models/models";
 import {ViewVoter} from "./ViewVoter"
 import {EditVoter} from "./EditVoter"
 

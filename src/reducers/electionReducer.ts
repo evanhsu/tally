@@ -1,5 +1,5 @@
 import { AnyAction, Reducer } from "redux";
-import { isRefreshElectionsDoneAction, isRefreshElectionsRequestAction } from "../actions/electionActions";
+import { isRefreshElectionsDoneAction } from "../actions/electionActions";
 import { Election } from "../models/models";
 
 // TODO: we can change AnyAction to be a more specific type

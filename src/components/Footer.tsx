@@ -1,11 +1,10 @@
 import React from "react";
 import { Brand } from "./Brand";
-import { Link, useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 
 export type FooterProps = {};
 export const Footer = (props: FooterProps) => {
   let homeRouteMatch = useRouteMatch("/home");
-
   const isHomePage = homeRouteMatch?.isExact;
   if (isHomePage) {
       return null;
