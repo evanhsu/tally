@@ -10,11 +10,7 @@
       "birthdate": "1915-01-01",
       "email": "lwang@ymail.com",
       "phone": "555-888-0909",
-      "completedElectionIds": [
-        1,
-        3,
-        2
-      ]
+      "completedElectionIds": [1, 3, 2]
     },
     {
       "id": 2,
@@ -26,10 +22,7 @@
       "birthdate": "1915-02-25",
       "email": "fake@gmail.com",
       "phone": "993-765-1234",
-      "completedElectionIds": [
-        1,
-        3
-      ]
+      "completedElectionIds": [1, 3]
     },
     {
       "firstName": "Mekha",
@@ -40,9 +33,7 @@
       "birthdate": "",
       "email": "a@b",
       "phone": "2983748172",
-      "completedElectionIds": [
-        1
-      ],
+      "completedElectionIds": [1],
       "id": 3
     }
   ],
