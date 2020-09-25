@@ -24,7 +24,9 @@
       "birthdate": "1915-02-25",
       "email": "fake@gmail.com",
       "phone": "993-765-1234",
-      "completedElectionIds": []
+      "completedElectionIds": [
+        1
+      ]
     },
     {
       "firstName": "Mekha",
@@ -37,6 +39,44 @@
       "phone": "2983748172",
       "completedElectionIds": [],
       "id": 3
+    },
+    {
+      "firstName": "Tom",
+      "lastName": "Philip",
+      "address": "dsfsdf",
+      "county": "USA",
+      "city": "San Diego",
+      "birthdate": "",
+      "email": "",
+      "phone": "",
+      "completedElectionIds": [],
+      "id": 4
+    },
+    {
+      "firstName": "Tiom",
+      "lastName": "",
+      "address": "sdfsd",
+      "county": "",
+      "city": "",
+      "birthdate": "",
+      "email": "",
+      "phone": "",
+      "completedElectionIds": [],
+      "id": 5
+    },
+    {
+      "firstName": "sdfdsf",
+      "lastName": "sdfsd",
+      "address": "wfewf",
+      "county": "",
+      "city": "",
+      "birthdate": "",
+      "email": "",
+      "phone": "",
+      "completedElectionIds": [
+        1
+      ],
+      "id": 6
     }
   ],
   "elections": [
@@ -99,6 +139,20 @@
         }
       ],
       "id": 4
+    },
+    {
+      "name": "Election3",
+      "questions": [
+        {
+          "question": "Color1",
+          "responseType": "bool"
+        },
+        {
+          "question": "Color2",
+          "responseType": "bool"
+        }
+      ],
+      "id": 5
     }
   ],
   "ballots": [
@@ -120,6 +174,44 @@
         }
       ],
       "id": 1
+    },
+    {
+      "voterId": 2,
+      "electionId": 1,
+      "answers": [
+        {
+          "question": "Should I have mexican food for dinner?",
+          "voterResponse": "false"
+        },
+        {
+          "question": "Should I have dessert?",
+          "voterResponse": "true"
+        },
+        {
+          "question": "Should I skip dinner?",
+          "voterResponse": "true"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "voterId": 6,
+      "electionId": 1,
+      "answers": [
+        {
+          "question": "Should I have mexican food for dinner?",
+          "voterResponse": "false"
+        },
+        {
+          "question": "Should I have dessert?",
+          "voterResponse": "true"
+        },
+        {
+          "question": "Should I skip dinner?",
+          "voterResponse": "true"
+        }
+      ],
+      "id": 3
     }
   ]
 }

@@ -7,6 +7,7 @@ import {
   createSetElectionFormAction,
   appendElection,
 } from "../actions/electionActions";
+import { useHistory } from "react-router-dom";
 
 // TODO: Move this somewhere else so it can be shared more easily
 type HTMLFormControls =
@@ -22,6 +23,10 @@ export type ElectionFormProps = {
 
 export const ElectionForm = (props: ElectionFormProps) => {
   const { form, setForm, saveElection } = props;
+
+  const browserHistory = useHistory();
+  const navigateToConfirmationPage = () =>
+  browserHistory.push(`/confirm`);
 
   const change = (e: ChangeEvent<HTMLFormControls>) => {
     // If the updated field is one of the dynamic 'question' fields, update
@@ -59,7 +64,8 @@ export const ElectionForm = (props: ElectionFormProps) => {
 
   const saveElectionThenNavigate = (electionForm: NewElection) => {
     saveElection(electionForm);
-    // TODO: we should navigate to the Election summary page after saving
+    // TODO: we should navigate to the Election instead of home page after saving
+    navigateToConfirmationPage();
   };
 
   return (

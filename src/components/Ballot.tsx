@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { NewBallot, Election, ElectionAnswer } from "../models/models";
 
 export type BallotProps = {
@@ -12,6 +13,10 @@ export function Ballot(props: BallotProps) {
     props.election.questions.map(q => initialBallotForm.push({question: q.question, voterResponse: "null"}))
 
     const [ ballotForm, updateBallotForm] = useState(initialBallotForm); 
+
+    const browserHistory = useHistory();
+    const navigateToConfirmationPage = () =>
+    browserHistory.push(`/confirm`);
 
     const change = (e: ChangeEvent<HTMLSelectElement>) => {
         // If the updated field is one of the dynamic 'question' fields, update
@@ -28,6 +33,8 @@ export function Ballot(props: BallotProps) {
             electionId: props.election.id,
             answers: ballotForm,
         });
+
+        navigateToConfirmationPage();
     };
 
     const boolAnswerTypeOptions = () => {
