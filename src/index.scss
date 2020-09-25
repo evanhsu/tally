@@ -149,6 +149,15 @@ body {
 .main-content {
   display: flex;
   flex-grow: 1;
+  // padding: 20px;
+  // align-items: flex-start;
+  // justify-content: center;
+}
+
+.content-wrapper {
+  padding: 20px;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .form-container {
@@ -187,3 +196,28 @@ form {
     color: $backgroundColorLight;
   }
 }
+
+table {
+  border-collapse: collapse;
+
+  thead {
+    background-color: $backgroundColorDark;
+    color: $colorSecondary;
+
+    tr {
+      height: 4em;
+    }
+  }
+
+  tbody {
+    tr:nth-child(even) {
+      background-color: rgb(249, 243, 235);
+    }
+    background-color: white;
+  }
+
+  td {
+    padding: 5px;
+  }
+}
+

@@ -34,8 +34,8 @@ export const ViewElections = (props: ViewElectionsProps) => {
   }
 
   return (
-    <div className="elections-page">
-      <h1>Elections Page</h1>
+    <div className="elections-page content-wrapper">
+      <h1>Elections</h1>
 
       <ElectionsTable
         elections={elections}

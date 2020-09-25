@@ -40,7 +40,7 @@ export function RegisterVoterContainer(props: RegisterVoterContainerProps) {
     {
       onRegisterVoter: TallyActions.appendVoter,
       onViewRegisteredVoters: TallyActions.fetchVoters,
-      onDeleteVoter: TallyActions.deleteVoter,
+      onDeleteVoters: TallyActions.deleteMultipleVoters,
       onEditVoter: TallyActions.editVoter,
       onSortVoters: TallyActions.createSortVotersAction,
       onCancelVoter: TallyActions.createCancelVoterAction,

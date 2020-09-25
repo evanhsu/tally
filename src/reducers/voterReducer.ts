@@ -46,7 +46,7 @@ export const voterReducer: Reducer<Voter[], VoterReducerActions> = (voters = ini
   }
 
   if (isDeleteVoterDoneAction(action)) {
-    return voters.filter(v => v.id !== action.payload.voterId)
+    return voters.filter(v => !action.payload.voterIds.includes(v.id))
   }
 
   if (isRegisterVoterDoneAction(action)) {

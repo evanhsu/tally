@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Ballot } from "../models/models";
 import { ViewBallot } from "./ViewBallot";
+import { Confirmation } from "./Confirmation";
 
 export type BallotTableProps = {
   ballots: Ballot[];
@@ -14,7 +15,8 @@ export const BallotTable = (props: BallotTableProps) => {
   browserHistory.push(`/elections`);
 
   return (
-    <div>
+
+    <div className="ballot-table-page content-wrapper">
       <table>
         <thead>
           <tr>
