@@ -8,6 +8,7 @@ import ErrorPage from "../components/ErrorPage";
 import NoMatch from "../components/NoMatch";
 import { SubmitBallotContainer } from "../containers/SubmitBallotContainer";
 import { BallotTableContainer } from "../containers/BallotTableContainer";
+import { Confirmation } from "../components/Confirmation";
 
 export const Routes = () => {
   return (
@@ -25,6 +26,7 @@ export const Routes = () => {
       {/* Change this component! */}
       <Route path="/voters" component={RegisterVoterContainer} />
       {/* <Route exact path="/elections/:electionId" component={Elections} /> */}
+      <Route exact path="/confirm" component={Confirmation} />
       <Route path="/error" component={ErrorPage} />
       <Route path="*" component={NoMatch} />
     </Switch>

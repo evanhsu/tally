@@ -1,19 +1,17 @@
 import React from "react";
 
-export type ConfirmationProps = {
-  message: string;
-  handleClick: () => void;
-  buttonText: string;
-};
-export const Confirmation = (props: ConfirmationProps) => {
-  const { message, handleClick, buttonText } = props;
+import { useHistory } from "react-router-dom";
 
+export const Confirmation = () => {
+  
+    const browserHistory = useHistory();
+    const navigateToHomeResultsPage = () =>
+    browserHistory.push(`/home`);
+  
   return (
     <div className="confirmation-wrapper">
-      <h1>{message}</h1>
-      <button type="button" onClick={handleClick}>
-        {buttonText}
-      </button>
+      <h1>Congratulations! Your inputs have been saved.</h1>
+      <button type="button" onClick={navigateToHomeResultsPage}>Go back to home</button>
     </div>
   );
 };

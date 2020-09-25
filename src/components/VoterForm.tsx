@@ -1,6 +1,8 @@
-import React from "react";
-import { useForm } from "../hooks/useForm";
-import { NewVoter } from "../models/models";
+
+import React from 'react';
+import { useForm } from '../hooks/useForm';
+import { NewVoter } from '../models/models';
+import { useHistory } from "react-router-dom";
 
 export type VoterFormProps = {
   onRegisterVoter: (voter: NewVoter) => void;
@@ -19,12 +21,18 @@ export function VoterForm(props: VoterFormProps) {
     completedElectionIds: [],
   });
 
+  const browserHistory = useHistory();
+  const navigateToConfirmationPage = () =>
+  browserHistory.push(`/confirm`);
+
   const submitVoter = () => {
     props.onRegisterVoter({
       ...voterForm,
     });
 
     resetVoterForm();
+    navigateToConfirmationPage();
+
   };
 
   return (

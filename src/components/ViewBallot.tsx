@@ -16,7 +16,7 @@ export const ViewBallot = (props: ViewBallotProps) => {
           {props.ballot.answers.map((answer) => (
             <li key={`${props.ballot.id}-${answer.question}`}>
               <span>{answer.question}</span>
-              <span>{answer.voterResponse}</span>
+              <span> {answer.voterResponse}</span>
             </li>
           ))}
         </ul>
