@@ -57,6 +57,11 @@ export const ElectionForm = (props: ElectionFormProps) => {
     setForm(newFormState);
   };
 
+  const saveElectionThenNavigate = (electionForm: NewElection) => {
+    saveElection(electionForm);
+    // TODO: we should navigate to the Election summary page after saving
+  };
+
   return (
     <div className="append-election-form-container">
       <h1>Plan a New Election</h1>
@@ -91,7 +96,7 @@ export const ElectionForm = (props: ElectionFormProps) => {
         <button
           className="save-election-button"
           type="button"
-          onClick={() => saveElection(form)}
+          onClick={() => saveElectionThenNavigate(form)}
         >
           Save
         </button>
@@ -105,6 +110,9 @@ export const ElectionFormContainer = (props: ElectionFormContainerProps) => {
   const form = useSelector<TallyState, NewElection>(
     (state) => state.electionForm
   );
+
+  // const history = useHistory();
+  // const handleClick = () => history.push('/goodbye');
 
   const state = {
     form,

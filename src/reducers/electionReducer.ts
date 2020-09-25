@@ -8,10 +8,6 @@ export const electionReducer: Reducer<Election[], AnyAction> = (
   elections = initialElections,
   action
 ) => {
-  if(isRefreshElectionsRequestAction(action)) {
-    // TODO: update loading state 
-  }
-
   if(isRefreshElectionsDoneAction(action)) {
     return [...action.payload];
   }

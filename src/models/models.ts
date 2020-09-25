@@ -31,15 +31,36 @@ export type Election = {
   name: string;
   questions: ElectionQuestion[];
 };
+
 export type NewElection= Omit<Election, 'id'>;
+export const emptyElection = {
+  id: -1,
+  name: '',
+  questions: [] as ElectionQuestion[],
+};
 
 export type Ballot = {
+  id: number;
   electionId: number;
   voterId: number;
   answers: ElectionAnswer[];
+};
+export type NewBallot = Omit<Ballot, 'id'>;
+export type BallotForm = {
+  isSubmitting: boolean,
 };
 
 export type VotersSort = {
   col: keyof Voter,
   dir: string,
+}
+
+export type LoginInfo = {
+  voterId: Voter["id"], 
+  electionId: Election["id"]
+}
+
+export type VoterLoginForm = {
+  authorizationInProgress: boolean,
+  errorMessage: string,
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { TopNav } from "./components/TopNav";
+import { Footer } from "./components/Footer";
 import { BrowserRouter } from "react-router-dom";
 import { Routes } from "./routes/routes";
 
@@ -11,6 +12,7 @@ export const App = () => {
         <div className="main-content">
           <Routes />
         </div>
+        <Footer />
       </BrowserRouter>
     </div>
   );
