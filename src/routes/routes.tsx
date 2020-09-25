@@ -7,6 +7,7 @@ import { Home } from "../components/Home";
 import ErrorPage from "../components/ErrorPage";
 import NoMatch from "../components/NoMatch";
 import { VoterForm } from "../components/VoterForm";
+import { SubmitBallotContainer } from "../containers/SubmitBallotContainer";
 
 export const Routes = () => {
   return (
@@ -18,7 +19,7 @@ export const Routes = () => {
       {/* Elections Routes */}
       <Route exact path="/elections" component={ViewElectionsContainer} />
       <Route exact path="/elections/create" component={ElectionFormContainer} />
-      <Route exact path="/vote" component={ViewElectionsContainer} />{" "}
+      <Route exact path="/vote" component={SubmitBallotContainer} />{" "}
       {/* Change this component! */}
       <Route exact path="/results" component={ViewElectionsContainer} />{" "}
       {/* Change this component! */}

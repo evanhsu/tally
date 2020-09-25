@@ -43,3 +43,13 @@ export type VotersSort = {
   col: keyof Voter,
   dir: string,
 }
+
+export type LoginInfo = {
+  voterId: Voter["id"], 
+  electionId: Election["id"]
+}
+
+export type VoterLoginForm = {
+  authorizationInProgress: boolean,
+  errorMessage: string,
+}

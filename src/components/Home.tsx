@@ -8,7 +8,7 @@ export const Home = (props: HomeProps) => {
       <Link to="/voters">
         <span>Register</span>
       </Link>
-      <Link to="/elections">
+      <Link to="/vote">
         <span>Vote</span>
       </Link>
       <Link to="/elections">

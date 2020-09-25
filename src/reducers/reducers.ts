@@ -5,8 +5,12 @@ import { electionReducer } from "./electionReducer";
 import { electionsLoadingReducer } from "./electionsLoadingReducer";
 import { ballotReducer } from "./ballotReducer";
 import { electionFormReducer } from "./electionFormReducer";
+import { currentVoterIdReducer } from "./currentVoterIdReducer";
+import { voterLoginFormReducer } from "./voterLoginFormReducer";
 
 export const tallyReducer: Reducer<TallyState, AnyAction> = combineReducers({
+  currentVoterId: currentVoterIdReducer,
+  voterLoginForm: voterLoginFormReducer,
   voters: voterReducer,
   editVoterId: editVoterIdReducer,
   votersSort: votersSortReducer,
