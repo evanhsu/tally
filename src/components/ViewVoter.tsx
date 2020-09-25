@@ -1,5 +1,5 @@
 import React from "react";
-import { Voter, NewVoter } from "../models/models";
+import { Voter } from "../models/models";
 
 export type ViewVoterProps = {
     voter: Voter,

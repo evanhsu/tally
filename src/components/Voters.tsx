@@ -1,6 +1,5 @@
 import React from "react";
-import { Voter, NewVoter, VoterKeys, VotersSort } from "../models/models";
-import { VoterForm } from "./VoterForm";
+import { Voter, NewVoter, VotersSort } from "../models/models";
 import { VoterTable } from './VoterTable';
 
 export type VotersProps = {

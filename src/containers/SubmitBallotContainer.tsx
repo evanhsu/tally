@@ -37,7 +37,7 @@ export function SubmitBallotContainer(props: SubmitBallotContainerProps) {
     // us to have already located the matching Election. So we're
     // not addressing the 'undefined' case.
     return state.elections.find(
-      (election) => election.id.toString() == electionId
+      (election) => election.id.toString() === electionId
     )!;
   });
 

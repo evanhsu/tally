@@ -1,19 +1,16 @@
-import { AnyAction, Reducer } from "redux";
+import { Reducer } from "redux";
 import { Voter, VotersSort } from "../models/models";
 import {
-  isFetchVotersRequestAction, 
   isFetchVotersDoneAction,
   FetchVotersDoneAction,
   AppendVoterDoneAction,
   isRegisterVoterDoneAction,
-  isRegisterVoterRequestAction,
   isDeleteVoterDoneAction, 
   isEditVoterDoneAction, 
   SortVotersAction, 
   isSortVotersAction,
   EditVoterIdAction,
   isEditVoterIdAction,
-  CancelVoterAction,
   isCancelVoterAction
 } from "../actions/tallyActions"
 

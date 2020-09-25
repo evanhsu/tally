@@ -10,7 +10,9 @@
       "birthdate": "1915-01-01",
       "email": "lwang@ymail.com",
       "phone": "555-888-0909",
-      "completedElectionIds": [1, 3, 2]
+      "completedElectionIds": [
+        1
+      ]
     },
     {
       "id": 2,
@@ -22,7 +24,7 @@
       "birthdate": "1915-02-25",
       "email": "fake@gmail.com",
       "phone": "993-765-1234",
-      "completedElectionIds": [1, 3]
+      "completedElectionIds": []
     },
     {
       "firstName": "Mekha",
@@ -33,7 +35,7 @@
       "birthdate": "",
       "email": "a@b",
       "phone": "2983748172",
-      "completedElectionIds": [1],
+      "completedElectionIds": [],
       "id": 3
     }
   ],
@@ -101,12 +103,12 @@
   ],
   "ballots": [
     {
-      "voterId": 3,
+      "voterId": 1,
       "electionId": 1,
       "answers": [
         {
           "question": "Should I have mexican food for dinner?",
-          "voterResponse": "false"
+          "voterResponse": "true"
         },
         {
           "question": "Should I have dessert?",
@@ -114,25 +116,10 @@
         },
         {
           "question": "Should I skip dinner?",
-          "voterResponse": "true"
-        }
-      ],
-      "id": 12
-    },
-    {
-      "voterId": 2,
-      "electionId": 3,
-      "answers": [
-        {
-          "question": "Cats?",
           "voterResponse": "false"
-        },
-        {
-          "question": "Dogs?",
-          "voterResponse": "true"
         }
       ],
-      "id": 13
+      "id": 1
     }
   ]
 }
