@@ -1,4 +1,5 @@
 import { AnyAction, Reducer } from "redux";
+import { isRefreshElectionsDoneAction } from "../actions/electionActions";
 import { Election } from "../models/models";
 
 // TODO: we can change AnyAction to be a more specific type
@@ -7,8 +8,9 @@ export const electionReducer: Reducer<Election[], AnyAction> = (
   elections = initialElections,
   action
 ) => {
-  // if (isSomethingAction(action)) {
-  //     return {something};
-  // }
-  return { ...elections };
+  if(isRefreshElectionsDoneAction(action)) {
+    return [...action.payload];
+  }
+
+  return [ ...elections ];
 };

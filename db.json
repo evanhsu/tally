@@ -10,7 +10,9 @@
       "birthdate": "1915-01-01",
       "email": "lwang@ymail.com",
       "phone": "555-888-0909",
-      "completedElectionIds": []
+      "completedElectionIds": [
+        1
+      ]
     },
     {
       "id": 2,
@@ -22,9 +24,19 @@
       "birthdate": "1915-02-25",
       "email": "fake@gmail.com",
       "phone": "993-765-1234",
-      "completedElectionIds": [
-        1
-      ]
+      "completedElectionIds": []
+    },
+    {
+      "firstName": "Mekha",
+      "lastName": "Last",
+      "address": "laisdfh",
+      "county": "Something",
+      "city": "Cool City",
+      "birthdate": "",
+      "email": "a@b",
+      "phone": "2983748172",
+      "completedElectionIds": [],
+      "id": 3
     }
   ],
   "elections": [
@@ -39,24 +51,75 @@
         {
           "question": "Should I have dessert?",
           "responseType": "bool"
+        },
+        {
+          "question": "Should I skip dinner?",
+          "responseType": "bool"
         }
       ]
+    },
+    {
+      "id": 2,
+      "name": "Pet Poll",
+      "questions": [
+        {
+          "question": "Should I get a cat?",
+          "responseType": "bool"
+        },
+        {
+          "question": "Should I get a dog?",
+          "responseType": "bool"
+        }
+      ]
+    },
+    {
+      "name": "Cats or Dogs",
+      "questions": [
+        {
+          "question": "Cats?",
+          "responseType": "bool"
+        },
+        {
+          "question": "Dogs?",
+          "responseType": "bool"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "name": "ice cream",
+      "questions": [
+        {
+          "question": "vanilla",
+          "responseType": "bool"
+        },
+        {
+          "question": "choco",
+          "responseType": "bool"
+        }
+      ],
+      "id": 4
     }
   ],
   "ballots": [
     {
-      "electionId": 1,
       "voterId": 1,
+      "electionId": 1,
       "answers": [
         {
           "question": "Should I have mexican food for dinner?",
-          "voterResponse": "false"
+          "voterResponse": "true"
         },
         {
           "question": "Should I have dessert?",
           "voterResponse": "true"
+        },
+        {
+          "question": "Should I skip dinner?",
+          "voterResponse": "false"
         }
-      ]
+      ],
+      "id": 1
     }
   ]
 }

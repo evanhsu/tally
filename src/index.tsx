@@ -8,7 +8,7 @@ import {tallyStore} from "./stores/tallyStore";
 
 ReactDOM.render(
   <Provider store={tallyStore}>
-      <App/>,
+      <App/>
   </Provider>,
   document.getElementById('root'),
 );

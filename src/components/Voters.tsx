@@ -1,31 +1,43 @@
 import React from "react";
-import { NewVoter } from "../models/models";
+import { Voter, NewVoter, VotersSort } from "../models/models";
+import { VoterTable } from './VoterTable';
 
 export type VotersProps = {
     onRegisterVoter: (newVoter: NewVoter) => void,
+    onViewRegisteredVoters: () => void,
+    onDeleteVoter: (voterId: number) => void,
+    onEditVoter: (newVoterInfo: Voter) => void,
+    onSortVoters: (col: keyof Voter) => void,
+    onCancelVoter: () => void,
+    onEditVoterId: (voterId: number) => void,
+    navigateToRegisterVoterPage: () => void,
+    voters: Voter[],
+    votersSort: VotersSort,
+    editVoterId: number,
 };
 
 export const Voters = (props: VotersProps) => {
-    console.log(props);
   return (
-    <>
+    <div className="voter-page">
       <h1>Voters Page</h1>
+
       <button
         type="button"
-        onClick={() => props.onRegisterVoter({
-          firstName: "Mekha",
-          lastName: "V",
-          address: "123 Tally St",
-          county: "ABC",
-          city: "East Coast",
-          birthdate: "1915-01-01",
-          email: "lwang@ymail.com",
-          phone: "555-888-0909",
-          completedElectionIds: [],
-        })}
+        onClick={props.navigateToRegisterVoterPage}
       >
-        Add Voter
+        Register Voter
       </button>
-    </>
+
+      <VoterTable 
+        editVoterId={props.editVoterId}
+        voters={props.voters}
+        votersSort={props.votersSort}
+        onSortVoters={props.onSortVoters}
+        onDeleteVoter={props.onDeleteVoter}
+        onEditVoter={props.onEditVoter}
+        onCancelVoter={props.onCancelVoter}
+        onEditVoterId={props.onEditVoterId}
+      />
+    </div>
   );
 };
